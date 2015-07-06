@@ -1,52 +1,84 @@
+// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
+// Jad home page: http://www.geocities.com/kpdus/jad.html
+// Decompiler options: braces fieldsfirst space lnc 
+
 package com.example.android.androidtraining;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
+// Referenced classes of package com.example.android.androidtraining:
+//            DisplayImageActivity, DisplayMessageActivity
 
 public class MainActivity extends ActionBarActivity {
 
-    public final static String EXTRA_MESSAGE = "com.example.android.androidtraining.MESSAGE";
+    // TODO: Action bar Tabs
+    // TODO: Action bar Spinner (Drop down menu)
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public static final String EXTRA_MESSAGE = "com.example.android.androidtraining.MESSAGE";
+    private int count;
+    private ActionBar.OnNavigationListener mOnNavigationListener;
+    private SpinnerAdapter mSpinnerAdapter;
 
+    public MainActivity() {
+        count = 0;
     }
 
-    @Override
+    public void add() {
+        count = count + 1;
+        ((TextView) findViewById(R.id.counter)).setText((new StringBuilder()).append("Count: ").append(count).toString());
+    }
+
+    public void display() {
+        startActivity(new Intent(this, DisplayImageActivity.class));
+    }
+
+    protected void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
+        setContentView(R.layout.activity_main);
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+    public boolean onOptionsItemSelected(MenuItem menuitem) {
+        int itemId = menuitem.getItemId();
+        if (itemId == R.id.action_settings) {
             return true;
         }
+        switch (itemId) {
+            default:
+                return super.onOptionsItemSelected(menuitem);
 
-        return super.onOptionsItemSelected(item);
+            case R.id.action_display:
+                display();
+                return true;
+
+            case R.id.action_add:
+                add();
+                break;
+        }
+        return true;
     }
 
-    /** Called when user clicks the Send button */
     public void sendMessage(View view) {
         Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText editText = (EditText)findViewById(R.id.edit_message);
+        EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
