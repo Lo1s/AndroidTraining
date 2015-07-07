@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:onClick="sendMessage"
             android:text="@string/button_send"
-            android:textColor="@color/material_deep_teal_200" />
+            android:textColor="@color/button_textcolor" />
     </LinearLayout>
 
     <TextView
@@ -33,8 +33,7 @@
         android:layout_above="@id/toolbar"
         android:layout_centerHorizontal="true"
         android:text="Count: 0"
-        android:textColor="@color/material_deep_teal_200"
-        android:textSize="50sp" />
+        style="@style/FontColor.BIG" />
 
     <TextView
         android:id="@+id/fragment_container"

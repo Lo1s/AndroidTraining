@@ -1,8 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <resources>
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="FontColor" parent="android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/material_deep_teal_200</item>
+    </style>
+
+    <style name="FontColor.BIG" >
+        <item name="android:textSize">50sp</item>
     </style>
 
 </resources>
