@@ -15,4 +15,6 @@
     <string name="title_activity_display">Images</string>
 
     <string name="hello_world">Hello world!</string>
+    <!-- String aliasing => hi_world = hello_world reference -->
+    <string name="hi_world">@string/hello_world</string>
 </resources>

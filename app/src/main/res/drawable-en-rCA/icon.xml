@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/icon_ca"/>
+<!-- TODO: Check by android emulator (via telnet probably) the local settings for changing icon
+    more info at: http://developer.android.com/guide/topics/resources/providing-resources.html -->

@@ -11,7 +11,8 @@
         <item name="android:textColor">@color/material_deep_teal_200</item>
     </style>
 
-    <style name="FontColor.BIG" >
+
+    <style name="FontColor.BIG">
         <item name="android:textSize">50sp</item>
     </style>
 

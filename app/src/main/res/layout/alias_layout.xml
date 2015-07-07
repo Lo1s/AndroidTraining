@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- For merge/layout alias purposes only => test -->
+
+<merge>
+    <include layout="@layout/main_whatever" />
+</merge>
