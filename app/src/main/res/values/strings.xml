@@ -17,4 +17,6 @@
     <string name="hello_world">Hello world!</string>
     <!-- String aliasing => hi_world = hello_world reference -->
     <string name="hi_world">@string/hello_world</string>
+    <string name="count">Count</string>
+    <string name="search">Search</string>
 </resources>

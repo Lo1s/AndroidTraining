@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/toolbar"
         android:layout_centerHorizontal="true"
-        android:text="Count: 0"
+        android:text="@string/count"
         style="@style/FontColor.BIG" />
 
 </RelativeLayout>

@@ -4,21 +4,18 @@
 
 package com.example.android.androidtraining;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 // Referenced classes of package com.example.android.androidtraining:
 //            DisplayImageActivity, DisplayMessageActivity
@@ -28,6 +25,7 @@ public class MainActivity extends ActionBarActivity {
     // TODO: Action bar Tabs
     // TODO: Action bar Spinner (Drop down menu)
 
+
     public static final String EXTRA_MESSAGE = "com.example.android.androidtraining.MESSAGE";
     private int count;
     private ActionBar.OnNavigationListener mOnNavigationListener;
@@ -35,11 +33,12 @@ public class MainActivity extends ActionBarActivity {
 
     public MainActivity() {
         count = 0;
+
     }
 
     public void add() {
         count = count + 1;
-        ((TextView) findViewById(R.id.counter)).setText((new StringBuilder()).append("Count: ").append(count).toString());
+        ((TextView) findViewById(R.id.counter)).setText((new StringBuilder()).append(getString(R.string.count) + ": ").append(count).toString());
     }
 
     public void display() {
@@ -49,6 +48,12 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_main);
+        TextView textView = (TextView) findViewById(R.id.counter);
+        textView.setText(getString(R.string.count) + ": " + count);
+        /** Testing of checking the SDK during runtime */
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            disableToast();
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,5 +87,9 @@ public class MainActivity extends ActionBarActivity {
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
+    }
+
+    public void disableToast() {
+        Toast.makeText(this, "Min SDK Test", Toast.LENGTH_SHORT).show();
     }
 }

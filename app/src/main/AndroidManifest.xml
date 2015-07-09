@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.androidtraining">
 
+    <!-- Required device features (Camera for no real reason :)) -->
+    <uses-feature android:name="android.hardware.Camera"
+        android:required="true"/>
+
+    <uses-permission android:name="android.permission.internet"/>
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

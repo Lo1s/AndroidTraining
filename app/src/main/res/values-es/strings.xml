@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AndroidTraining</string>
+    <string name="SplitBar">Pruebas</string>
+    <string name="action_add">Añadir</string>
+    <string name="action_display">Mostrar</string>
+    <string name="action_message">Edición de mensajes</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="action_share">Compartir</string>
+    <string name="button_send">Enviar</string>
+    <string name="edit_message">Escriba un mensaje</string>
+    <string name="hi_world"></string>
+    <string name="title_activity_display">Imágenes</string>
+    <string name="title_activity_display_message">Mi mensaje</string>
+    <string name="count">Contar</string>
+    <string name="search">Búsqueda</string>
+</resources>

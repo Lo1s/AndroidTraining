@@ -11,7 +11,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 // Referenced classes of package com.example.android.androidtraining:
@@ -20,6 +19,7 @@ import android.view.MenuItem;
 public class DisplayImageActivity extends ActionBarActivity
 {
 
+    // TODO: Transparent Action Bar for Images
     private ShareActionProvider mShareActionProvider;
 
     public DisplayImageActivity()

@@ -4,13 +4,11 @@
 
 package com.example.android.androidtraining;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -35,6 +33,7 @@ public class DisplayMessageActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_display_message, menu);
         MenuItem searchItem = menu.findItem(R.id.set_message);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setQueryHint(getString(R.string.search));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
