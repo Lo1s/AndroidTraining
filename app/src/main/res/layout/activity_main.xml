@@ -36,4 +36,64 @@
         android:text="@string/count"
         style="@style/FontColor.BIG" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/counter"
+        android:layout_marginBottom="30dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/urlbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter website"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/showContact"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_weight="0"
+                android:layout_height="wrap_content"
+                android:text="@string/button_contact"
+                style="@style/FontColor"
+                android:onClick="pickContact"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/activityMonitorTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activityMonitor"
+        android:layout_below="@id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        style="@style/FontColor"
+        />
+
+    <TextView
+        android:id="@+id/activityMonitor"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@id/activityMonitorTitle"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:paddingLeft="25dp"
+        style="@style/FontColor"
+        android:background="@drawable/rectangle" />
+
 </RelativeLayout>
