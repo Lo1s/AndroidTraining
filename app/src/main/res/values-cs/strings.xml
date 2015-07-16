@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AndroidTraining</string>
-    <string name="SplitBar">Testování</string>
+    <string name="DropDown">Testování</string>
     <string name="action_add">Přidat</string>
     <string name="action_display">Zobraz</string>
     <string name="action_message">Upravit</string>

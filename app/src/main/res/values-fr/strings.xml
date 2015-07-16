@@ -11,7 +11,7 @@
     <string name="action_message">Éditer les messages</string>
     <string name="action_display">Exposition</string>
     <string name="action_add">Ajouter</string>
-    <string name="SplitBar">Essai</string>
+    <string name="DropDown">Essai</string>
     <string name="count">Compter</string>
     <string name="search">Recherche</string>
 </resources>

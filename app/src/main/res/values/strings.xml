@@ -6,12 +6,16 @@
     <string name="action_message">Edit message</string>
     <string name="action_display">Display</string>
     <string name="action_add">Add</string>
-    <string name="SplitBar">Testing</string>
+    <string name="DropDown">DropDown</string>
+    <string name="Tabs">Tabs</string>
 
     <string name="edit_message">Enter a message</string>
 
     <string name="button_send">Send</string>
     <string name="button_contact">Get Contact</string>
+    <string name="button_dogs">Dogs</string>
+    <string name="button_rafa">Rafa</string>
+    <string name="button_android">Android</string>
     <string name="title_activity_display_message">My Message</string>
     <string name="title_activity_display">Images</string>
 
@@ -21,4 +25,18 @@
     <string name="count">Count</string>
     <string name="search">Search</string>
     <string name="activityMonitor">Activity Monitor</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_tab">TabActivity</string>
+    <string name="title_activity_drop_down_navigation">DropDownNavigationActivity</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
 </resources>

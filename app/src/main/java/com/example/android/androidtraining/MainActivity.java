@@ -15,127 +15,99 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 // Referenced classes of package com.example.android.androidtraining:
 //            DisplayImageActivity, DisplayMessageActivity
 
 public class MainActivity extends ActionBarActivity {
 
-    // TODO: Action bar Tabs
-    // TODO: Action bar Spinner (Drop down menu)
 
-
+    /** Global variables */
+    // Intent extra message
     public static final String EXTRA_MESSAGE = "com.example.android.androidtraining.MESSAGE";
+
+    // Identifier for the saved instance
     static final String COUNT = "counter";
+    // RequestCode identifier for picking up contact
     private final int PICK_CONTACT_REQUEST = 1;
+    // Counter
     private int count;
+
+    // ActionBar listener
     private ActionBar.OnNavigationListener mOnNavigationListener;
-    private SpinnerAdapter mSpinnerAdapter;
+
+    // TextViews global declaration
     public TextView activityMonitor;
     public TextView showContact;
     public TextView counter;
 
     public MainActivity() {
         count = 0;
-
     }
 
-    public void add() {
-        count = count + 1;
-        ((TextView) findViewById(R.id.counter)).setText((new StringBuilder()).append(getString(R.string.count) + ": ").append(count).toString());
-    }
-
-    public void display() {
-        startActivity(new Intent(this, DisplayImageActivity.class));
-    }
-
-    private void showWebsite() {
-
-    }
-
-    public void pickContact(View view) {
-        // Create an intent to pick the contact
-        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-        startActivityForResult(intent, PICK_CONTACT_REQUEST);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Check if the request went ok and if it was PICK_CONTACT_REQUEST
-        // TODO: Update this method for actually picking the contact when you learn about content providers
-        if (resultCode == Activity.RESULT_OK && requestCode == PICK_CONTACT_REQUEST) {
-            showContact.setText(data.getDataString());
-            Toast.makeText(this, "activityForResult went ok !", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(COUNT, count);
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        count = savedInstanceState.getInt(COUNT);
-        counter.setText(new StringBuilder("Count: ").append(count));
-    }
-
+    /** Lifecycle methods */
     protected void onCreate(Bundle bundle) {
+        // Always call super for lifecycle methods
         super.onCreate(bundle);
+        // Setting up the layout for the activity
         setContentView(R.layout.activity_main);
+
+        // Initializing the TextViews that are handled programatically
         counter = (TextView) findViewById(R.id.counter);
         activityMonitor = (TextView) findViewById(R.id.activityMonitor);
         showContact = (TextView) findViewById(R.id.showContact);
+        // Set the counter after creating
         counter.setText(getString(R.string.count) + ": " + count);
-        /** Testing of checking the SDK during runtime */
+
+        // Checking the SDK during runtime
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             disableToast();
         }
+        // Activity monitor message
         activityMonitor.append(getLocalClassName() + ": onCreate()" + System.getProperty("line.separator"));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        // Activity monitor message
         activityMonitor.append(getLocalClassName() + ": onStart()" + System.getProperty("line.separator"));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        // Activity monitor message
         activityMonitor.append(getLocalClassName() + ": onResume()" + System.getProperty("line.separator"));
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        // Activity monitor message
         activityMonitor.setText(getLocalClassName() + ": onPause()" + System.getProperty("line.separator"));
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
+        // Activity monitor message
         activityMonitor.setText(getLocalClassName() + ": onRestart()" + System.getProperty("line.separator"));
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        // Activity monitor message
         activityMonitor.setText(getLocalClassName() + ": onStop()" + System.getProperty("line.separator"));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        // Activity monitor message
         activityMonitor.setText(getLocalClassName() + ": onDestroy()" + System.getProperty("line.separator"));
     }
 
@@ -144,6 +116,7 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
+    // Handling the selected item within the ActionBar
     public boolean onOptionsItemSelected(MenuItem menuitem) {
         int itemId = menuitem.getItemId();
         if (itemId == R.id.action_settings) {
@@ -160,10 +133,47 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_add:
                 add();
                 break;
+            case R.id.action_tabs:
+                Intent intentTabs = new Intent(this, TabActivity.class);
+                startActivity(intentTabs);
+                break;
+            case R.id.action_dropdown:
+                Intent intentDropDown = new Intent(this, DropDownNavigationActivity.class);
+                startActivity(intentDropDown);
+                break;
         }
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Check if the request went ok and if it was PICK_CONTACT_REQUEST
+        // TODO: Update this method for actually picking the contact when you learn about content providers
+        if (resultCode == Activity.RESULT_OK && requestCode == PICK_CONTACT_REQUEST) {
+            showContact.setText(data.getDataString());
+            Toast.makeText(this, "activityForResult went ok !", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Saving the instance for keeping the value in counter
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(COUNT, count);
+        super.onSaveInstanceState(outState);
+    }
+
+    // Restoring the saved instance
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        count = savedInstanceState.getInt(COUNT);
+        counter.setText(new StringBuilder("Count: ").append(count));
+    }
+
+    /** Own methods */
+    // Sending message from the EditText to anither activity via Intent
     public void sendMessage(View view) {
         Intent intent = new Intent(this, DisplayMessageActivity.class);
         EditText editText = (EditText) findViewById(R.id.edit_message);
@@ -172,7 +182,33 @@ public class MainActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    // Testing Toasts (Checking the minimal SDK version)
     public void disableToast() {
         Toast.makeText(this, "Min SDK Test", Toast.LENGTH_SHORT).show();
     }
+
+    // Increment counter
+    public void add() {
+        count = count + 1;
+        ((TextView) findViewById(R.id.counter)).setText((new StringBuilder()).append(getString(R.string.count) + ": ").append(count).toString());
+    }
+
+    // ActionBar method for DisplayActivity
+    public void display() {
+        startActivity(new Intent(this, DisplayImageActivity.class));
+    }
+
+    // TODO: Implement after Intent learning
+    private void showWebsite() {
+
+    }
+
+    // Picking up contact (activity for result)
+    public void pickContact(View view) {
+        // Create an intent to pick the contact
+        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        startActivityForResult(intent, PICK_CONTACT_REQUEST);
+    }
+
 }
+

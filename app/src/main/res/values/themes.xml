@@ -18,13 +18,13 @@
         parent="@style/Widget.AppCompat.ActionBar">
         <item name="android:titleTextStyle">@style/TitleTextStyle</item>
         <item name="android:background">@color/button_material_dark</item>
-        <item name="android:backgroundStacked">@color/button_material_dark</item>
+        <item name="android:backgroundStacked">#000000</item>
         <item name="android:backgroundSplit">@color/button_material_dark</item>
 
         <!-- Support library compatibility -->
         <item name="titleTextStyle">@style/TitleTextStyle</item>
         <item name="background">@color/button_material_dark</item>
-        <item name="backgroundStacked">@color/button_material_dark</item>
+        <item name="backgroundStacked">#000000</item>
         <item name="backgroundSplit">@color/button_material_dark</item>
     </style>
 
@@ -37,6 +37,6 @@
     <!-- action bar tab text -->
     <style name="TabTextStyle"
         parent="@style/Widget.AppCompat.ActionBar.TabText">
-        <item name="android:textColor">@color/material_deep_teal_200</item>
+        <item name="android:textColor">@color/material_deep_teal_500</item>
     </style>
 </resources>

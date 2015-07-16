@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.android.androidtraining.ButtonsFragment" >
+
+    <Button
+        android:id="@+id/btnDogs"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/button_dogs"
+        android:textAllCaps="false"
+        style="@style/FontColor"
+        android:onClick="onButtonClick"/>
+
+    <Button
+        android:id="@+id/btnRafa"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/button_rafa"
+        android:textAllCaps="false"
+        style="@style/FontColor"
+        android:onClick="onButtonClick"/>
+
+    <Button
+        android:id="@+id/btnAndroid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/button_android"
+        android:textAllCaps="false"
+        style="@style/FontColor"
+        android:onClick="onButtonClick"/>
+
+</LinearLayout>

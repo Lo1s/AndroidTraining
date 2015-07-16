@@ -16,11 +16,13 @@
         android:title="@string/action_add"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/action_tabs"
         android:icon="@android:drawable/btn_radio"
-        android:title="@string/SplitBar"
+        android:title="@string/Tabs"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/action_dropdown"
         android:icon="@android:drawable/btn_star"
-        android:title="@string/SplitBar"
+        android:title="@string/DropDown"
         app:showAsAction="ifRoom" />
 </menu>

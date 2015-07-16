@@ -66,6 +66,7 @@
                 android:layout_weight="0"
                 android:layout_height="wrap_content"
                 android:text="@string/button_contact"
+                android:textAllCaps="false"
                 style="@style/FontColor"
                 android:onClick="pickContact"/>
         </LinearLayout>

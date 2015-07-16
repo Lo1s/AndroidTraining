@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 public class DisplayMessageActivity extends ActionBarActivity {
 
-    TextView textView;
-    String message;
+    public TextView textView;
+    public String message;
 
     public DisplayMessageActivity() {
 
@@ -23,6 +23,7 @@ public class DisplayMessageActivity extends ActionBarActivity {
 
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+        // Setting up the layout with the message from the MainActivity
         setContentView(R.layout.activity_display_message);
         message = getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE);
         textView = (TextView) findViewById(R.id.textViewMessage);
@@ -31,6 +32,8 @@ public class DisplayMessageActivity extends ActionBarActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_display_message, menu);
+
+        // Testing the SearchView widget inside the ActionBar
         MenuItem searchItem = menu.findItem(R.id.set_message);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setQueryHint(getString(R.string.search));
