@@ -6,6 +6,7 @@ package com.example.android.androidtraining;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -42,6 +43,8 @@ public class MainActivity extends ActionBarActivity {
     public TextView activityMonitor;
     public TextView showContact;
     public TextView counter;
+    // SharedPreferences global decleration
+    SharedPreferences sharedPreferences;
 
     public MainActivity() {
         count = 0;
@@ -53,11 +56,14 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(bundle);
         // Setting up the layout for the activity
         setContentView(R.layout.activity_main);
-
         // Initializing the TextViews that are handled programatically
         counter = (TextView) findViewById(R.id.counter);
         activityMonitor = (TextView) findViewById(R.id.activityMonitor);
         showContact = (TextView) findViewById(R.id.showContact);
+        // If the app is started for the first time load the count value from the shared preferences
+        if (count == 0) {
+            count = restoreCountFromSharedPreferences();
+        }
         // Set the counter after creating
         counter.setText(getString(R.string.count) + ": " + count);
 
@@ -86,6 +92,8 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        // Get share preferences
+        saveCountToSharedPreferences();
         // Activity monitor message
         activityMonitor.setText(getLocalClassName() + ": onPause()" + System.getProperty("line.separator"));
     }
@@ -208,6 +216,20 @@ public class MainActivity extends ActionBarActivity {
         // Create an intent to pick the contact
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         startActivityForResult(intent, PICK_CONTACT_REQUEST);
+    }
+
+    // Save the count value into SharedPreferences
+    public void saveCountToSharedPreferences() {
+        sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(getString(R.string.count_value_key), count);
+        editor.commit();
+    }
+
+    // Load the count value from the SharedPreferences
+    public int restoreCountFromSharedPreferences() {
+        sharedPreferences = getPreferences(MODE_PRIVATE);
+        return sharedPreferences.getInt(getString(R.string.count_value_key), 0);
     }
 
 }

@@ -16,8 +16,11 @@
     <string name="button_dogs">Dogs</string>
     <string name="button_rafa">Rafa</string>
     <string name="button_android">Android</string>
+    <string name="button_save">Save String to IM</string>
+    <string name="button_load">Load String from IM</string>
     <string name="title_activity_display_message">My Message</string>
     <string name="title_activity_display">Images</string>
+    <string name="title_saved_string">Saved String:</string>
 
     <string name="hello_world">Hello world!</string>
     <!-- String aliasing => hi_world = hello_world reference -->
@@ -39,4 +42,6 @@
 
     <string name="action_example">Example action</string>
 
+    <string name="count_value_key">count</string>
+    
 </resources>

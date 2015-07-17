@@ -11,4 +11,56 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:textSize="40sp" />
+
+   <LinearLayout
+       android:id="@+id/saving_buttons"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/textViewMessage"
+       android:layout_centerInParent="true"
+       >
+
+       <Button
+           android:id="@+id/Save_files"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textAllCaps="false"
+           android:text="@string/button_save"
+           style="@style/FontColor"
+           android:onClick="saveMessage"/>
+
+       <Button
+           android:id="@+id/Load_files"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textAllCaps="false"
+           android:text="@string/button_load"
+           style="@style/FontColor"
+           android:onClick="displayMessage"/>
+
+   </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/saving_buttons"
+        android:layout_marginTop="30sp">
+
+        <TextView
+            android:id="@+id/textViewTitleMemory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/title_saved_string"/>
+
+        <TextView
+            android:id="@+id/textViewSavedMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/FontColor"
+            />
+
+    </LinearLayout>
+
 </RelativeLayout>
