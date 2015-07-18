@@ -16,8 +16,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class DisplayMessageActivity extends ActionBarActivity {
 
@@ -71,11 +77,11 @@ public class DisplayMessageActivity extends ActionBarActivity {
     // Save the message to the file at internal memory
     private void saveMessageToFile(String string) {
         FileOutputStream outputStream;
-
         try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream = openFileOutput(filename, MODE_PRIVATE);
             outputStream.write(string.getBytes());
             outputStream.close();
+            Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
         } catch (Exception ex) {
             Log.e(FILE_NOT_FOUND, "Error during creating FileOutputStream");
             Toast.makeText(this, "File not created !", Toast.LENGTH_SHORT).show();
@@ -84,14 +90,19 @@ public class DisplayMessageActivity extends ActionBarActivity {
 
     // Load the message from the file at the internal memory
     private String loadMessageFromFile() {
-        FileInputStream inputStream;
+        FileInputStream fileInputStream;
+        InputStreamReader inputStreamReader;
+        BufferedReader bufferedReader;
         StringBuilder builder = new StringBuilder();
         try {
-            inputStream = openFileInput(filename);
-            while (openFileInput(filename).available() >= 0) {
-                builder.append((char)(openFileInput(filename).read()));
+            fileInputStream = openFileInput(filename);
+            inputStreamReader = new InputStreamReader(fileInputStream);
+            bufferedReader = new BufferedReader(inputStreamReader);
+            String temp;
+            while ((temp = bufferedReader.readLine()) != null) {
+                builder.append(temp + System.getProperty("line.separator"));
             }
-            inputStream.close();
+            fileInputStream.close();
         } catch (Exception ex) {
             Log.e(FILE_NOT_FOUND, "Error while reading the file !");
             Toast.makeText(this, "File not found !", Toast.LENGTH_SHORT).show();
@@ -100,13 +111,13 @@ public class DisplayMessageActivity extends ActionBarActivity {
     }
 
     // Display the message saved from the file
-    public void displayMessage(View view) {
+    public void displayMessageFromIM(View view) {
         TextView textView = (TextView) findViewById(R.id.textViewSavedMessage);
         textView.setText(loadMessageFromFile());
     }
 
     // Save message by button
-    public void saveMessage(View view) {
+    public void saveMessageToIM(View view) {
         saveMessageToFile(textView.getText().toString());
     }
 }
