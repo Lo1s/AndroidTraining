@@ -6,23 +6,27 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_display"
+        android:id="@+id/menu_display"
         android:icon="@android:drawable/ic_menu_gallery"
         android:title="@string/action_display"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_add"
+        android:id="@+id/menu_add"
         android:icon="@android:drawable/ic_input_add"
         android:title="@string/action_add"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_tabs"
+        android:id="@+id/menu_tabs"
         android:icon="@android:drawable/btn_radio"
         android:title="@string/Tabs"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_dropdown"
+        android:id="@+id/menu_dropdown"
         android:icon="@android:drawable/btn_star"
         android:title="@string/DropDown"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_login"
+        android:title="@string/menu_login"
+        app:showAsAction="never"/>
 </menu>

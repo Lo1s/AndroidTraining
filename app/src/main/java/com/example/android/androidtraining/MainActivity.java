@@ -134,20 +134,24 @@ public class MainActivity extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(menuitem);
 
-            case R.id.action_display:
+            case R.id.menu_display:
                 display();
                 return true;
 
-            case R.id.action_add:
+            case R.id.menu_add:
                 add();
                 break;
-            case R.id.action_tabs:
+            case R.id.menu_tabs:
                 Intent intentTabs = new Intent(this, TabActivity.class);
                 startActivity(intentTabs);
                 break;
-            case R.id.action_dropdown:
+            case R.id.menu_dropdown:
                 Intent intentDropDown = new Intent(this, DropDownNavigationActivity.class);
                 startActivity(intentDropDown);
+                break;
+            case R.id.menu_login:
+                Intent intentLogin = new Intent(this, LoginActivity.class);
+                startActivity(intentLogin);
                 break;
         }
         return true;

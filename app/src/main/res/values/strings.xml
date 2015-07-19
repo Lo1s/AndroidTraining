@@ -8,8 +8,14 @@
     <string name="action_add">Add</string>
     <string name="DropDown">DropDown</string>
     <string name="Tabs">Tabs</string>
+    <string name="menu_login">Login</string>
 
     <string name="edit_message">Enter a message</string>
+    <string name="edit_firstname">Enter first name</string>
+    <string name="edit_lastname">Enter last name</string>
+    <string name="edit_password">Enter password</string>
+    <string name="edit_password_repeat">Re-enter password</string>
+    <string name="hint_lastSignedUser">Last signed user</string>
 
     <string name="button_send">Send</string>
     <string name="button_contact">Get Contact</string>
@@ -18,6 +24,8 @@
     <string name="button_android">Android</string>
     <string name="button_save">Save String to IM</string>
     <string name="button_load">Load String from IM</string>
+    <string name="button_signin">Sign in</string>
+
     <string name="title_activity_display_message">My Message</string>
     <string name="title_activity_display">Images</string>
     <string name="title_saved_string">Saved String:</string>
@@ -43,5 +51,6 @@
     <string name="action_example">Example action</string>
 
     <string name="count_value_key">count</string>
+    <string name="title_activity_login">Sign in</string>
     
 </resources>

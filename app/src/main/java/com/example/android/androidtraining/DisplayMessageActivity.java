@@ -77,13 +77,18 @@ public class DisplayMessageActivity extends ActionBarActivity {
     // Save the message to the file at internal memory
     private void saveMessageToFile(String string) {
         FileOutputStream outputStream;
+        File file = new File(getFilesDir() + "");
+        double freeSpace = file.getFreeSpace() / 1000000000;
+        double totalSpace = file.getTotalSpace() / 1000000000;
+        String space = "Free space: " + String.format("%.2f", freeSpace) + " GB / "
+                + String.format("%.2f", totalSpace) + " GB";
         try {
             outputStream = openFileOutput(filename, MODE_PRIVATE);
             outputStream.write(string.getBytes());
             outputStream.close();
-            Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, space, Toast.LENGTH_LONG).show();
         } catch (Exception ex) {
-            Log.e(FILE_NOT_FOUND, "Error during creating FileOutputStream");
+            Log.d(FILE_NOT_FOUND, "Error during creating FileOutputStream");
             Toast.makeText(this, "File not created !", Toast.LENGTH_SHORT).show();
         }
     }
@@ -104,7 +109,7 @@ public class DisplayMessageActivity extends ActionBarActivity {
             }
             fileInputStream.close();
         } catch (Exception ex) {
-            Log.e(FILE_NOT_FOUND, "Error while reading the file !");
+            Log.d(FILE_NOT_FOUND, "Error while reading the file !");
             Toast.makeText(this, "File not found !", Toast.LENGTH_SHORT).show();
         }
         return builder.toString();
