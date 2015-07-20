@@ -54,7 +54,7 @@
         android:background="@drawable/rectangle"
         android:layout_alignParentBottom="true"
         android:paddingLeft="10sp"
-        android:paddingTop="5sp"
+        android:paddingTop="4sp"
         android:hint="@string/hint_lastSignedUser"
         android:layout_marginBottom="20dp"/>
 

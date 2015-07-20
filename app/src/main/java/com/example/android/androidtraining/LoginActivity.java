@@ -36,14 +36,8 @@ public class LoginActivity extends ActionBarActivity {
         // Open database
         dbHelper = new DbHelper(this);
         db = dbHelper.getWritableDatabase();
+        checkLastSignedUser();
 
-        // Read the last signed user
-        String[] columns = new String[]{DbHelper.C_FIRSTNAME, DbHelper.C_LASTNAME};
-        dbQuery = db.rawQuery(String.format("select %s, %s from %s", DbHelper.C_FIRSTNAME,
-                DbHelper.C_LASTNAME, DbHelper.DB_TABLE), null);
-        dbQuery.moveToLast();
-        textViewLastSigned = (TextView) findViewById(R.id.lastSignedUser);
-        textViewLastSigned.setText(dbQuery.getString(0) + " " + dbQuery.getString(1));
     }
 
     @Override
@@ -76,6 +70,18 @@ public class LoginActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void checkLastSignedUser() {
+        // Read the last signed user
+        String[] columns = new String[]{DbHelper.C_FIRSTNAME, DbHelper.C_LASTNAME};
+        dbQuery = db.rawQuery(String.format("select %s, %s from %s", DbHelper.C_FIRSTNAME,
+                DbHelper.C_LASTNAME, DbHelper.DB_TABLE), null);
+        dbQuery.moveToLast();
+        if (dbQuery.getCount() > 0) {
+            textViewLastSigned = (TextView) findViewById(R.id.lastSignedUser);
+            textViewLastSigned.setText(dbQuery.getString(0) + " " + dbQuery.getString(1));
+        }
+    }
+
     public void signIn(View view) {
         editTextFirstName = (EditText) findViewById(R.id.editTextFirstName);
         editTextLastName = (EditText) findViewById(R.id.editTextLastName);
@@ -97,11 +103,14 @@ public class LoginActivity extends ActionBarActivity {
             values.put(DbHelper.C_LASTNAME, lastName);
             values.put(DbHelper.C_PASSWORD, password);
             db.insert(DbHelper.DB_TABLE, null, values);
+
             editTextFirstName.setText("");
             editTextLastName.setText("");
             editTextPass.setText("");
             editTextPassRepeated.setText("");
+
             Toast.makeText(this, "Signed successfully ! (" + firstName + ": " + password + ")", Toast.LENGTH_LONG).show();
+            checkLastSignedUser();
         } else if ((firstName.length() > 0) && !password.equals(passwordRepeated)){
             Toast.makeText(this, "Registration failed: Password does not match!", Toast.LENGTH_LONG).show();
         } else if ((firstName.length() > 0) && password.length() < 4) {

@@ -4,7 +4,6 @@
 
 package com.example.android.androidtraining;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -16,13 +15,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class DisplayMessageActivity extends ActionBarActivity {
@@ -78,8 +74,8 @@ public class DisplayMessageActivity extends ActionBarActivity {
     private void saveMessageToFile(String string) {
         FileOutputStream outputStream;
         File file = new File(getFilesDir() + "");
-        double freeSpace = file.getFreeSpace() / 1000000000;
-        double totalSpace = file.getTotalSpace() / 1000000000;
+        double freeSpace = file.getFreeSpace() / 1000000000D;
+        double totalSpace = file.getTotalSpace() / 1000000000D;
         String space = "Free space: " + String.format("%.2f", freeSpace) + " GB / "
                 + String.format("%.2f", totalSpace) + " GB";
         try {
