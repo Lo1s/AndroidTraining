@@ -18,7 +18,6 @@
     <string name="hint_lastSignedUser">Last signed user</string>
 
     <string name="button_send">Send</string>
-    <string name="button_contact">Get Contact</string>
     <string name="button_dogs">Dogs</string>
     <string name="button_rafa">Rafa</string>
     <string name="button_android">Android</string>
@@ -29,8 +28,9 @@
     <string name="button_phone">Phone Intent</string>
     <string name="button_map">Map Intent</string>
     <string name="button_web">Web Intent</string>
-    <string name="button_mail">Mail intent</string>
+    <string name="button_mail">Mail Intent</string>
     <string name="button_calendar">Calendar intent</string>
+    <string name="button_contact">Contact Intent</string>
     <string name="chooser_title">Share this message via</string>
 
     <string name="title_activity_display_message">My Message</string>

@@ -1,95 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="horizontal">
+    android:layout_height="fill_parent">
 
     <LinearLayout
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
+        android:id="@+id/main_window"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
-
-        <TextView
-            android:id="@+id/counter"
-            style="@style/FontColor.BIG"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/toolbar"
-            android:layout_centerHorizontal="true"
-            android:text="@string/count" />
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/edit_message"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:hint="@string/edit_message" />
-
-            <Button
+            <TextView
+                android:id="@+id/counter"
+                style="@style/FontColor.BIG"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="sendMessage"
-                android:text="@string/button_send"
-                android:textColor="@color/button_textcolor" />
+                android:layout_above="@id/toolbar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="86dp"
+                android:text="@string/count" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edit_message"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:hint="@string/edit_message" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="sendMessage"
+                    android:text="@string/button_send"
+                    android:textColor="@color/button_textcolor" />
+                <!-- TODO: Test color/button_textcolor for color changing state -->
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/urlbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter website" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_weight="0"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/button_contact"
-            android:textAllCaps="false"
-            style="@style/FontColor"
-            android:onClick="pickContact"/>
-        <!-- TODO: Test color/button_textcolor for color changing state -->
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/activityMonitorTitle"
+                style="@style/FontColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/activityMonitor" />
+
+            <TextView
+                android:id="@+id/activityMonitor"
+                style="@style/FontColor"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rectangle"
+                android:paddingLeft="25dp" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
-
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:orientation="horizontal"
+        android:layout_below="@id/main_window">
 
-        <TextView
-            android:id="@+id/activityMonitorTitle"
-            style="@style/FontColor"
+        <Button
+            android:id="@+id/start_intents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/activityMonitor" />
-
-        <TextView
-            android:id="@+id/activityMonitor"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:paddingLeft="25dp"
+            android:textAllCaps="false"
+            android:text="@string/button_intents"
             style="@style/FontColor"
-            android:background="@drawable/rectangle" />
-
-        <TextView
-            android:id="@+id/showContact"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            android:onClick="startIntentsActivity"/>
 
     </LinearLayout>
 
-
-</LinearLayout>
+</RelativeLayout>

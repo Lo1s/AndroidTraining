@@ -31,8 +31,7 @@ public class MainActivity extends ActionBarActivity {
 
     // Identifier for the saved instance
     static final String COUNT = "counter";
-    // RequestCode identifier for picking up contact
-    private final int PICK_CONTACT_REQUEST = 1;
+
     // Counter
     private int count;
 
@@ -41,7 +40,6 @@ public class MainActivity extends ActionBarActivity {
 
     // TextViews global declaration
     public TextView activityMonitor;
-    public TextView showContact;
     public TextView counter;
     // SharedPreferences global decleration
     SharedPreferences sharedPreferences;
@@ -59,7 +57,6 @@ public class MainActivity extends ActionBarActivity {
         // Initializing the TextViews that are handled programatically
         counter = (TextView) findViewById(R.id.counter);
         activityMonitor = (TextView) findViewById(R.id.activityMonitor);
-        showContact = (TextView) findViewById(R.id.showContact);
         // If the app is started for the first time load the count value from the shared preferences
         if (count == 0) {
             count = restoreCountFromSharedPreferences();
@@ -157,18 +154,6 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Check if the request went ok and if it was PICK_CONTACT_REQUEST
-        // TODO: Update this method for actually picking the contact when you learn about content providers
-        if (resultCode == Activity.RESULT_OK && requestCode == PICK_CONTACT_REQUEST) {
-            showContact.setText(data.getDataString());
-            Toast.makeText(this, "activityForResult went ok !", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     // Saving the instance for keeping the value in counter
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -208,18 +193,6 @@ public class MainActivity extends ActionBarActivity {
     // ActionBar method for DisplayActivity
     public void display() {
         startActivity(new Intent(this, DisplayImageActivity.class));
-    }
-
-    // TODO: Implement after Intent learning
-    private void showWebsite() {
-
-    }
-
-    // Picking up contact (activity for result)
-    public void pickContact(View view) {
-        // Create an intent to pick the contact
-        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-        startActivityForResult(intent, PICK_CONTACT_REQUEST);
     }
 
     // Save the count value into SharedPreferences

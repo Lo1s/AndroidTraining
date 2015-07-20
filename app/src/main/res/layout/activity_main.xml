@@ -6,6 +6,23 @@
     android:orientation="horizontal">
 
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/start_intents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="@string/button_intents"
+            style="@style/FontColor"
+            android:onClick="startIntentsActivity"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/toolbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -36,60 +53,6 @@
         android:text="@string/count"
         style="@style/FontColor.BIG" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/counter"
-        android:layout_marginBottom="30dp"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/urlbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter website"
-            />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/button_contact"
-                    android:textAllCaps="false"
-                    style="@style/FontColor"
-                    android:onClick="pickContact"/>
-
-                <Button
-                    android:id="@+id/start_intents"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAllCaps="false"
-                    android:text="@string/button_intents"
-                    style="@style/FontColor"
-                    android:onClick="startIntentsActivity"/>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/showContact"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-
-        </LinearLayout>
-
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/activityMonitorTitle"
