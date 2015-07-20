@@ -2,5 +2,5 @@
 <!-- For merge/layout alias purposes only => test -->
 
 <merge>
-    <include layout="@layout/main_whatever" />
+    <include layout="@layout/activity_whatever" />
 </merge>

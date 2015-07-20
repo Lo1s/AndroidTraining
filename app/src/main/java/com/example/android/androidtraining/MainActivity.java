@@ -236,5 +236,11 @@ public class MainActivity extends ActionBarActivity {
         return sharedPreferences.getInt(getString(R.string.count_value_key), 0);
     }
 
+    // Starts the activity with intent test
+    public void startIntentsActivity(View view) {
+        Intent intent = new Intent(this, IntentsActivity.class);
+        startActivity(intent);
+    }
+
 }
 

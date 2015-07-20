@@ -25,6 +25,13 @@
     <string name="button_save">Save String to IM</string>
     <string name="button_load">Load String from IM</string>
     <string name="button_signin">Sign in</string>
+    <string name="button_intents">Try Intents !</string>
+    <string name="button_phone">Phone Intent</string>
+    <string name="button_map">Map Intent</string>
+    <string name="button_web">Web Intent</string>
+    <string name="button_mail">Mail intent</string>
+    <string name="button_calendar">Calendar intent</string>
+    <string name="chooser_title">Share this message via</string>
 
     <string name="title_activity_display_message">My Message</string>
     <string name="title_activity_display">Images</string>
@@ -52,5 +59,6 @@
 
     <string name="count_value_key">count</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_intents">IntentsActivity</string>
     
 </resources>
