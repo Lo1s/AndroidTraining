@@ -18,12 +18,12 @@
     <item
         android:id="@+id/menu_tabs"
         android:icon="@android:drawable/btn_radio"
-        android:title="@string/Tabs"
+        android:title="@string/tabs"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_dropdown"
         android:icon="@android:drawable/btn_star"
-        android:title="@string/DropDown"
+        android:title="@string/dropdown"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_login"

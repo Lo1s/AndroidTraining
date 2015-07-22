@@ -12,6 +12,7 @@
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <!--
  To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
      option is required to comply with the Google+ Sign-In developer policies
@@ -37,18 +38,23 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".DisplayMessageActivity"
-            android:label="@string/title_activity_display_message"
             android:parentActivityName=".MainActivity"
+            android:label="@string/title_activity_display_message"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.androidtraining.MainActivity" />
+            <!-- Custom made intent for displaying text/plain in the DisplayMessageActivity -->
+            <intent-filter>
+                <action android:name="com.example.android.androidtraining.activity.DISPLAY_MESSAGE" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".DisplayImageActivity"

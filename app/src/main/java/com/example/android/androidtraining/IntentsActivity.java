@@ -1,18 +1,26 @@
 package com.example.android.androidtraining;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.AlarmClock;
 import android.provider.CalendarContract;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.android.gms.actions.ReserveIntents;
 
 import org.apache.http.protocol.HTTP;
 
@@ -23,6 +31,15 @@ import java.util.List;
 public class IntentsActivity extends ActionBarActivity {
 
     static final int PICK_CONTACT_REQUEST = 1; // The request code
+    static final int SEND_IMPLICIT_INTENT = 2;
+    static final int REQUEST_IMAGE_CAPTURE = 3;
+    static final int REQUEST_IMAGE_CONTENT = 4;
+    static final int REQUEST_IMAGE_OPEN = 5;
+
+    static final Uri mLocationPhotos = Uri.parse("file///sdcard");
+
+    public static final String IMPLICIT_TEST = "com.example.android.androidtraining.IMPLICIT_INTENT";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,11 +99,33 @@ public class IntentsActivity extends ActionBarActivity {
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Noooo ! Why did you hit the back/cancel button ?! :(", Toast.LENGTH_LONG).show();
             }
+            // Testing custom implicit intent and startActivityForResult()
+        } else if (SEND_IMPLICIT_INTENT == requestCode) {
+            if (RESULT_OK == resultCode) {
+                Toast.makeText(this, "Result received !", Toast.LENGTH_SHORT).show();
+            }
+        } else if (REQUEST_IMAGE_CAPTURE == requestCode) {
+            if (RESULT_OK == resultCode) {
+                // TODO: Complete this to view the image !
+                Toast.makeText(this, "Complete this to view the image !", Toast.LENGTH_SHORT).show();
+            }
+        } else if (REQUEST_IMAGE_CONTENT == requestCode) {
+            if (RESULT_OK == resultCode) {
+                Bitmap thumbnail = data.getParcelableExtra("data");
+                Uri fullPhotoUri = data.getData();
+                // TODO: Do something with the image (maybe display it ? what about thumbnail ?)
+                Toast.makeText(this, "Result received, but that's lame. Do something with it !", Toast.LENGTH_LONG).show();
+            }
+        } else if (REQUEST_IMAGE_OPEN == requestCode) {
+            if (RESULT_OK == resultCode) {
+                Uri fullPhotoUri = data.getData();
+                // TODO: Do something with the image (maybe display it ? what about thumbnail ?)
+                Toast.makeText(this, "Result received, but that's lame. Do something with it !", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
-
-    // ACTION_DIAL
+    // ACTION_DIAL (phone app - dialer)
     public void phoneIntent(View view) {
         Uri number = Uri.parse("tel:0609112567");
         Intent phoneIntent = new Intent(Intent.ACTION_DIAL, number);
@@ -176,5 +215,155 @@ public class IntentsActivity extends ActionBarActivity {
         startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
     }
 
+    // DISPLAY_MESSAGE (implicit intent)
+    public void sendImplicitIntent(View view) {
+        Button button = (Button) findViewById(R.id.btn_implicitTest);
+
+        Intent implicitIntent = new Intent();
+        implicitIntent.setAction("com.example.android.androidtraining.activity.DISPLAY_MESSAGE");
+        // Just extract the title of the button as message
+        implicitIntent.setType("text/plain");
+        implicitIntent.putExtra(IMPLICIT_TEST, "Sent from a button !");
+        startActivity(implicitIntent); // startActivityForResult(implicitIntent, SEND_IMPLICIT_INTENT);
+    }
+
+    // ACTION_SET_ALARM
+    public void setAlarmIntent(View view) {
+        Intent alarmIntent = new Intent(AlarmClock.ACTION_SET_ALARM)
+                .putExtra(AlarmClock.EXTRA_MESSAGE, "Wake up !")
+                .putExtra(AlarmClock.EXTRA_HOUR, 23)
+                .putExtra(AlarmClock.EXTRA_MINUTES, 59);
+
+        if (alarmIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(alarmIntent);
+        }
+    }
+
+    // ACTION_SET_TIMER
+    public void startTimerIntent(View view) {
+        Intent timerIntent = new Intent(AlarmClock.ACTION_SET_TIMER)
+                .putExtra(AlarmClock.EXTRA_MESSAGE, "Ready, Set, Go !")
+                .putExtra(AlarmClock.EXTRA_LENGTH, 30)
+                .putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+
+        if (timerIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(timerIntent);
+        }
+    }
+
+    // ACTION_IMAGE_CAPTURE
+    public void captureImageIntent(View view) {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.withAppendedPath(mLocationPhotos, "test"));
+        if (cameraIntent.resolveActivity(getPackageManager()) != null)
+            startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    // ACTION_STILL_IMAGE_CAMERA
+    public void captureStillImageIntent(View view) {
+        Intent stillCameraIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+        if (stillCameraIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(stillCameraIntent);
+        }
+    }
+
+    // ACTION_VIDEO_CAMERA
+    public void startVideoIntent(View view) {
+        Intent startVideoIntent =  new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        if (startVideoIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(startVideoIntent);
+        }
+    }
+
+    // ACTION_GET_CONTENT
+    public void selectImageIntent(View View) {
+        Intent selectimageIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        selectimageIntent.setType("image/*");
+        if (selectimageIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(selectimageIntent, REQUEST_IMAGE_CONTENT);
+        }
+    }
+
+    // ACTION_OPEN_DOCUMENT
+    public void openImageIntent(View view) {
+        Intent openImageIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        openImageIntent.setType("image/*");
+        openImageIntent.addCategory(Intent.CATEGORY_OPENABLE); // To return only "openable" files that can be represented as a file stream with
+        // Only the system receives the ACTION_OPEN_DOCUMENT, so no need to test.
+        startActivityForResult(openImageIntent, REQUEST_IMAGE_OPEN);
+    }
+
+    // ACTION_RESERVE_TAXI_RESERVATION
+    public void callCarIntent(View view) {
+        Intent callCarIntent = new Intent(ReserveIntents.ACTION_RESERVE_TAXI_RESERVATION);
+        if (callCarIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(callCarIntent);
+        } else {
+            Toast.makeText(this, "No application found !", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // ACTION_VIEW (play music)
+    public void playMediaIntent(View view) {
+        Uri uriFile = Uri.parse("file:///sdcard/Ringtones/hangouts_message.ogg");
+        Intent musicIntent = new Intent(Intent.ACTION_VIEW);
+        musicIntent.setType("audio/*");
+        musicIntent.setData(uriFile);
+        if (musicIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(musicIntent);
+        } else {
+            Toast.makeText(this, "No application found !", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    // ACTION_MEDIA_PLAY_FROM_SEARCH
+    public void playSearchArtistIntent(View view) {
+        // TODO: Add Destorm mp3 into internal memory
+        String artist = "Destorm";
+        Intent playSearchIntent = new Intent(MediaStore.INTENT_ACTION_MEDIA_PLAY_FROM_SEARCH);
+        playSearchIntent.putExtra(MediaStore.EXTRA_MEDIA_FOCUS, MediaStore.Audio.Artists.ENTRY_CONTENT_TYPE);
+        playSearchIntent.putExtra(MediaStore.EXTRA_MEDIA_ARTIST, artist);
+        playSearchIntent.putExtra(SearchManager.QUERY, artist);
+        if (playSearchIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(playSearchIntent);
+        }
+    }
+
+   // ACTION_SEARCH
+    public void webSearchIntent(View view) {
+        Intent webSearchIntent = new Intent(Intent.ACTION_SEARCH);
+        webSearchIntent.putExtra(SearchManager.QUERY, "Whatever");
+        if (webSearchIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(webSearchIntent);
+        } else {
+            Toast.makeText(this, "No application found !", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // ACTION_SETTINGS
+    public void settingsIntent(View view) {
+        Intent settingsIntent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+        if (settingsIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(settingsIntent);
+        } else {
+            Toast.makeText(this, "No application found !", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // ACTION_SENDTO
+    public void composeMmsMessageIntent(View view) {
+        Intent mmsIntent = new Intent(Intent.ACTION_SEND);
+        mmsIntent.setData(Uri.parse("smsto:")); // This ensures only SMS apps respond
+        mmsIntent.setType("text/plain");
+        mmsIntent.setType("image/*");
+        mmsIntent.putExtra("sms_body", "Hello there !");
+        mmsIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:///image.JPG"));
+        if (mmsIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mmsIntent);
+        } else {
+            Toast.makeText(this, "No application found !", Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

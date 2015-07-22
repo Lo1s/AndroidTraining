@@ -4,6 +4,7 @@
 
 package com.example.android.androidtraining;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -35,9 +36,23 @@ public class DisplayMessageActivity extends ActionBarActivity {
         super.onCreate(bundle);
         // Setting up the layout with the message from the MainActivity
         setContentView(R.layout.activity_display_message);
-        message = getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE);
         textView = (TextView) findViewById(R.id.textViewMessage);
-        textView.setText(message);
+        // Get the intent
+        Intent intent = getIntent();
+        if (intent.hasExtra(IntentsActivity.IMPLICIT_TEST)) {
+            message = intent.getStringExtra(IntentsActivity.IMPLICIT_TEST);
+            textView.setText("Implicit intent: " + System.getProperty("line.separator") + message);
+            /*try {
+                Thread.sleep(2000);
+                setResult(RESULT_OK);
+                finish();
+            } catch (InterruptedException ex) {
+                Log.e("Pause", "Pause Failed");
+            }*/
+        } else if (intent.hasExtra(MainActivity.EXTRA_MESSAGE)){
+            message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+            textView.setText("Explicit intent: " + System.getProperty("line.separator") + message);
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

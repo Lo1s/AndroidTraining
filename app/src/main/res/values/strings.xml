@@ -6,8 +6,8 @@
     <string name="action_message">Edit message</string>
     <string name="action_display">Display</string>
     <string name="action_add">Add</string>
-    <string name="DropDown">DropDown</string>
-    <string name="Tabs">Tabs</string>
+    <string name="dropdown">DropDown</string>
+    <string name="tabs">Tabs</string>
     <string name="menu_login">Login</string>
 
     <string name="edit_message">Enter a message</string>
@@ -15,7 +15,7 @@
     <string name="edit_lastname">Enter last name</string>
     <string name="edit_password">Enter password</string>
     <string name="edit_password_repeat">Re-enter password</string>
-    <string name="hint_lastSignedUser">Last signed user</string>
+    <string name="hint_last_signed_user">Last signed user</string>
 
     <string name="button_send">Send</string>
     <string name="button_dogs">Dogs</string>
@@ -29,8 +29,24 @@
     <string name="button_map">Map Intent</string>
     <string name="button_web">Web Intent</string>
     <string name="button_mail">Mail Intent</string>
-    <string name="button_calendar">Calendar intent</string>
+    <string name="button_calendar">Calendar Intent</string>
     <string name="button_contact">Contact Intent</string>
+    <string name="button_implicit">Implicit Intent</string>
+    <string name="button_alarm">Alarm Intent</string>
+    <string name="button_timer">Timer Intent</string>
+    <string name="button_camera">Camera Intent</string>
+    <string name="button_camera_still">Still Cam Intent</string>
+    <string name="button_video">Video Intent</string>
+    <string name="button_file_retrieve">Retrieve File Intent</string>
+    <string name="button_file_open">Open File Intent</string>
+    <string name="button_taxi">Taxi Intent</string>
+    <string name="button_music">Music Intent</string>
+    <string name="button_music_search">Music Search Intent</string>
+    <string name="button_web_search">Web Search Intent</string>
+    <string name="button_settings">Settings Intent</string>
+    <string name="button_mms">MMS Intent</string>
+
+
     <string name="chooser_title">Share this message via</string>
 
     <string name="title_activity_display_message">My Message</string>
@@ -42,7 +58,7 @@
     <string name="hi_world">@string/hello_world</string>
     <string name="count">Count</string>
     <string name="search">Search</string>
-    <string name="activityMonitor">Activity Monitor</string>
+    <string name="activity_monitor">Activity Monitor</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_tab">TabActivity</string>
