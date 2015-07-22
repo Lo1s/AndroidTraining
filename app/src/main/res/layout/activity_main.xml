@@ -9,16 +9,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
 
         <Button
-            android:id="@+id/start_intents"
+            android:id="@+id/button_start_intents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:text="@string/button_intents"
             style="@style/FontColor"
             android:onClick="startIntentsActivity"/>
+
+        <Button
+            android:id="@+id/button_intent_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="@string/button_intent_service"
+            style="@style/FontColor"
+            android:onClick="startIntentService"/>
+
+        <Button
+            android:id="@+id/button_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="@string/button_service"
+            style="@style/FontColor"
+            android:onClick="startService"/>
 
     </LinearLayout>
 

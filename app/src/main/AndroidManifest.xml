@@ -38,13 +38,14 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".DisplayMessageActivity"
-            android:parentActivityName=".MainActivity"
             android:label="@string/title_activity_display_message"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -52,8 +53,10 @@
             <!-- Custom made intent for displaying text/plain in the DisplayMessageActivity -->
             <intent-filter>
                 <action android:name="com.example.android.androidtraining.activity.DISPLAY_MESSAGE" />
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="text/plain"/>
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
         <activity
@@ -93,6 +96,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.androidtraining.MainActivity" />
         </activity>
+
+        <service
+            android:name=".HelloIntentService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name=".HelloService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

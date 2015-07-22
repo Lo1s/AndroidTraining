@@ -45,7 +45,8 @@
     <string name="button_web_search">Web Search Intent</string>
     <string name="button_settings">Settings Intent</string>
     <string name="button_mms">MMS Intent</string>
-
+    <string name="button_intent_service">Intent Service</string>
+    <string name="button_service">Service</string>
 
     <string name="chooser_title">Share this message via</string>
 

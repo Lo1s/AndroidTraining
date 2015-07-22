@@ -4,12 +4,10 @@
 
 package com.example.android.androidtraining;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -25,7 +23,9 @@ import android.widget.Toast;
 public class MainActivity extends ActionBarActivity {
 
 
-    /** Global variables */
+    /**
+     * Global variables
+     */
     // Intent extra message
     public static final String EXTRA_MESSAGE = "com.example.android.androidtraining.MESSAGE";
 
@@ -48,7 +48,9 @@ public class MainActivity extends ActionBarActivity {
         count = 0;
     }
 
-    /** Lifecycle methods */
+    /**
+     * Lifecycle methods
+     */
     protected void onCreate(Bundle bundle) {
         // Always call super for lifecycle methods
         super.onCreate(bundle);
@@ -169,7 +171,9 @@ public class MainActivity extends ActionBarActivity {
         counter.setText(new StringBuilder("Count: ").append(count));
     }
 
-    /** Own methods */
+    /**
+     * Own methods
+     */
     // Sending message from the EditText to anither activity via Intent
     public void sendMessage(View view) {
         Intent intent = new Intent(this, DisplayMessageActivity.class);
@@ -215,5 +219,17 @@ public class MainActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    // Starts the HelloIntentService service
+    public void startIntentService(View view) {
+        Intent startIntentService = new Intent(MainActivity.this, HelloIntentService.class);
+        startService(startIntentService);
+
+    }
+
+    // Starts the HelloService service
+    public void startService(View view) {
+        Intent startService = new Intent(this, HelloService.class);
+        startService(startService);
+    }
 }
 

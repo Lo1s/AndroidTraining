@@ -89,7 +89,7 @@
         android:layout_below="@id/main_window">
 
         <Button
-            android:id="@+id/start_intents"
+            android:id="@+id/button_start_intents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
