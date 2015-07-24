@@ -20,6 +20,7 @@ import android.view.View;
 
 public class DisplayImageActivity extends ActionBarActivity implements ButtonsFragment.OnButtonClickListener {
 
+
     // TODO: Transparent Action Bar for Images
 
     // Declaring the listener for the buttons fragment
@@ -95,7 +96,9 @@ public class DisplayImageActivity extends ActionBarActivity implements ButtonsFr
     private Intent getDefaultIntent() {
         Intent intent = new Intent("android.intent.action.SEND");
         intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_STREAM, Uri.parse((new StringBuilder()).append("android.resource://").append(getPackageName()).append("/").append(ImageFragment.ARG_IMG).append(".jpg").toString()));
+        // TODO: Update the uri for selected image instead of the default one
+        Uri uriImage = Uri.parse("android.resource://" + getPackageName() + "/drawable/rafa.jpg");
+        intent.putExtra(Intent.EXTRA_STREAM, uriImage);
         return intent;
     }
 
@@ -129,7 +132,6 @@ public class DisplayImageActivity extends ActionBarActivity implements ButtonsFr
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_display_image, menu);
         mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menu.findItem(R.id.action_share));
         mShareActionProvider.setShareIntent(getDefaultIntent());
@@ -140,6 +142,7 @@ public class DisplayImageActivity extends ActionBarActivity implements ButtonsFr
         if (menuitem.getItemId() == R.id.action_settings) {
             return true;
         } else {
+            mShareActionProvider.setShareIntent(getDefaultIntent());
             return super.onOptionsItemSelected(menuitem);
         }
     }

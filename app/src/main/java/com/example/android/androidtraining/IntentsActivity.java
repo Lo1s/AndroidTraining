@@ -224,7 +224,8 @@ public class IntentsActivity extends ActionBarActivity {
         // Just extract the title of the button as message
         implicitIntent.setType("text/plain");
         implicitIntent.putExtra(IMPLICIT_TEST, "Sent from a button !");
-        startActivity(implicitIntent); // startActivityForResult(implicitIntent, SEND_IMPLICIT_INTENT);
+        // startActivityForResult(implicitIntent, SEND_IMPLICIT_INTENT);
+        startActivity(implicitIntent);
     }
 
     // ACTION_SET_ALARM
