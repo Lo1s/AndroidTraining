@@ -4,10 +4,14 @@
 
 package com.example.android.androidtraining;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -21,6 +25,27 @@ import android.widget.Toast;
 //            DisplayImageActivity, DisplayMessageActivity
 
 public class MainActivity extends ActionBarActivity {
+
+    // Bind service variables
+    BindService mBindService;
+    boolean mBound = false;
+
+    /** Defines callbacks for service binding, passed to bindService() */
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            BindService.LocalBinder binder = (BindService.LocalBinder) service;
+            mBindService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mBound = false;
+        }
+    };
 
 
     /**
@@ -79,6 +104,10 @@ public class MainActivity extends ActionBarActivity {
         super.onStart();
         // Activity monitor message
         activityMonitor.append(getLocalClassName() + ": onStart()" + System.getProperty("line.separator"));
+
+        // Bind to BindService
+        Intent bindIntent = new Intent(this, BindService.class);
+        bindService(bindIntent, mConnection, Context.BIND_AUTO_CREATE);
     }
 
     @Override
@@ -109,6 +138,12 @@ public class MainActivity extends ActionBarActivity {
         super.onStop();
         // Activity monitor message
         activityMonitor.setText(getLocalClassName() + ": onStop()" + System.getProperty("line.separator"));
+
+        // Unbind from the service
+        if (mBound) {
+            unbindService(mConnection);
+            mBound = false;
+        }
     }
 
     @Override
@@ -230,6 +265,17 @@ public class MainActivity extends ActionBarActivity {
     public void startService(View view) {
         Intent startService = new Intent(this, HelloService.class);
         startService(startService);
+    }
+
+    // Starts the binded service
+    public void startBindService(View view) {
+        // Call a method from the LocalService.
+        // However, if this call were something that might hang, then this request should
+        // occur in a separate thread to avoid slowing down the activity performance.
+        if (mBound) {
+            int num = mBindService.getRandomNumber();
+            Toast.makeText(this, num + "", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 

@@ -6,6 +6,7 @@
     android:orientation="horizontal">
 
     <LinearLayout
+        android:id="@+id/first_row_buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -38,6 +39,25 @@
             android:text="@string/button_service"
             style="@style/FontColor"
             android:onClick="startService"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/second_row_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/first_row_buttons">
+
+        <Button
+            android:id="@+id/button_bind_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_bind_service"
+            style="@style/FontColor"
+            android:textAllCaps="false"
+            android:onClick="startBindService"/>
 
     </LinearLayout>
 
