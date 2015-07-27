@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.ParcelFileDescriptor;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -29,6 +30,12 @@ public class MainActivity extends ActionBarActivity {
     // Bind service variables
     BindService mBindService;
     boolean mBound = false;
+
+    // Variables for requesting file from internal memory
+    private final int REQUEST_FILE = 0;
+    private Intent mRequestFileIntent;
+    private ParcelFileDescriptor mInputPFD;
+
 
     /** Defines callbacks for service binding, passed to bindService() */
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -275,6 +282,16 @@ public class MainActivity extends ActionBarActivity {
         if (mBound) {
             int num = mBindService.getRandomNumber();
             Toast.makeText(this, num + "", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Request the file from the internal memory
+    public void requestFile(View view) {
+        mRequestFileIntent = new Intent(Intent.ACTION_PICK);
+        mRequestFileIntent.setType("image/jpg");
+
+        if (mRequestFileIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(mRequestFileIntent, REQUEST_FILE);
         }
     }
 }

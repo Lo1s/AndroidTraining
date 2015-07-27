@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.androidtraining">
+    package="com.example.android.androidtraining" >
 
     <!-- Required device features (Camera for no real reason :)) -->
     <uses-feature
@@ -29,11 +29,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/CustomActionBarTheme"
-        android:uiOptions="splitActionBarWhenNarrow">
+        android:uiOptions="splitActionBarWhenNarrow" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
                 android:name="android.support.UI_OPTIONS"
                 android:value="splitActionBarWhenNarrow" />
@@ -48,7 +48,7 @@
             android:name=".DisplayMessageActivity"
             android:label="@string/title_activity_display_message"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.androidtraining.MainActivity" />
@@ -63,22 +63,22 @@
         </activity>
         <activity
             android:name=".DisplayImageActivity"
-            android:label="@string/title_activity_display">
+            android:label="@string/title_activity_display" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".TabActivity"
-            android:label="@string/title_activity_tab"></activity>
+            android:label="@string/title_activity_tab" />
         <activity
             android:name=".DropDownNavigationActivity"
-            android:label="@string/title_activity_drop_down_navigation"></activity>
+            android:label="@string/title_activity_drop_down_navigation" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden">
+            android:windowSoftInputMode="adjustResize|stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.androidtraining.MainActivity" />
@@ -91,7 +91,7 @@
         <activity
             android:name=".IntentsActivity"
             android:label="@string/title_activity_intents"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.androidtraining.MainActivity" />
@@ -99,26 +99,39 @@
 
         <service
             android:name=".HelloIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
         <service
             android:name=".HelloService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+        <service android:name=".BindService" />
 
-        <service android:name=".BindService"></service>
-        
         <provider
-            android:authorities="com.example.android.androidtraining.fileprovider"
             android:name="android.support.v4.content.FileProvider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:authorities="com.example.android.androidtraining.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths">
-
+                android:resource="@xml/filepaths" >
             </meta-data>
         </provider>
-        
+
+        <activity
+            android:name=".FileSelectActivity"
+            android:label="@string/title_activity_file_select"
+            android:parentActivityName=".MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.PICK" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.androidtraining.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

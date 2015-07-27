@@ -48,7 +48,7 @@
     <string name="button_intent_service">Intent Service</string>
     <string name="button_service">Service</string>
     <string name="button_bind_service">Bind Service</string>
-
+    <string name="button_request_file">Request File</string>
     <string name="chooser_title">Share this message via</string>
 
     <string name="title_activity_display_message">My Message</string>
@@ -78,5 +78,6 @@
     <string name="count_value_key">count</string>
     <string name="title_activity_login">Sign in</string>
     <string name="title_activity_intents">IntentsActivity</string>
+    <string name="title_activity_file_select">FileSelectActivity</string>
     
 </resources>
