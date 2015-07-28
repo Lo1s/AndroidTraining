@@ -9,12 +9,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
+import android.provider.OpenableColumns;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,10 +26,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
+
 // Referenced classes of package com.example.android.androidtraining:
 //            DisplayImageActivity, DisplayMessageActivity
 
 public class MainActivity extends ActionBarActivity {
+
+    private static final String TAG = "MainActivity";
 
     // Bind service variables
     BindService mBindService;
@@ -37,7 +46,9 @@ public class MainActivity extends ActionBarActivity {
     private ParcelFileDescriptor mInputPFD;
 
 
-    /** Defines callbacks for service binding, passed to bindService() */
+    /**
+     * Defines callbacks for service binding, passed to bindService()
+     */
     private ServiceConnection mConnection = new ServiceConnection() {
 
         @Override
@@ -211,6 +222,52 @@ public class MainActivity extends ActionBarActivity {
         super.onRestoreInstanceState(savedInstanceState);
         count = savedInstanceState.getInt(COUNT);
         counter.setText(new StringBuilder("Count: ").append(count));
+    }
+
+    // Access the requested file from the internal memory
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // If the selection didn't work
+        if (resultCode != RESULT_OK) {
+            // Exit without doing anything else
+            return;
+        } else {
+            // Get the file's content URI from the incoming Intent
+            Uri returnUri = data.getData();
+            /*
+             * Try to open the file for "read" access using the
+             * returned URI. If the file isn't found, write to the
+             * error log and return.
+             */
+            try {
+                /*
+                 * Get the content resolver instance for this context, and use it
+                 * to get a ParcelFileDescriptor for the file.
+                 */
+                mInputPFD = getContentResolver().openFileDescriptor(returnUri, "r");
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+                Log.e(TAG, "File not found");
+                return;
+            }
+            // Get a regular file descriptor for the file
+            FileDescriptor fd = mInputPFD.getFileDescriptor();
+            // ...
+            // Get the files MIME type
+            String mimeType = getContentResolver().getType(returnUri);
+            // Query the server's app to get the file's name and size
+            Cursor returnCursor = getContentResolver().query(returnUri, null, null, null, null);
+            /**
+             * Get the column indexes of the data in the Cursor,
+             * move to the first row in the Cursor, get the data,
+             * and display it.
+             */
+            int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+            returnCursor.moveToFirst();
+            Toast.makeText(this, "Name:" + returnCursor.getString(nameIndex)
+                    + ", Size: " + returnCursor.getString(sizeIndex), Toast.LENGTH_LONG).show();
+        }
     }
 
     /**
