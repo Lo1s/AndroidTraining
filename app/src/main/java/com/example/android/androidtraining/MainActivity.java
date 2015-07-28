@@ -9,15 +9,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.nfc.NfcAdapter;
+import android.nfc.NfcEvent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +31,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 
@@ -45,6 +51,34 @@ public class MainActivity extends ActionBarActivity {
     private Intent mRequestFileIntent;
     private ParcelFileDescriptor mInputPFD;
 
+    /**
+     * Global variables
+     */
+    // Intent extra message
+    public static final String EXTRA_MESSAGE = "com.example.android.androidtraining.MESSAGE";
+    // Identifier for the saved instance
+    static final String COUNT = "counter";
+    // Counter
+    private int count;
+    // ActionBar listener
+    private ActionBar.OnNavigationListener mOnNavigationListener;
+    // TextViews global declaration
+    public TextView activityMonitor;
+    public TextView counter;
+    // SharedPreferences global decleration
+    SharedPreferences sharedPreferences;
+    // NFC transfer
+    NfcAdapter mNfcAdapter;
+    // Flag to indicate that Android Beam is available
+    boolean mAndroidBeamAvailable = false;
+    private Uri[] mFileUris = new Uri[10];
+    private String transferfile = "rafa.jpg";
+    private File extDir = new File("/sdcard/files/myimages/");
+    private File requestFile = new File(extDir, transferfile);
+    private FileUriCallback mFileUriCallback;
+    // A File object containing the path to the transferred files
+    private File mParentPath;
+    private Intent mIntentNFCtransfer;
 
     /**
      * Defines callbacks for service binding, passed to bindService()
@@ -64,28 +98,6 @@ public class MainActivity extends ActionBarActivity {
             mBound = false;
         }
     };
-
-
-    /**
-     * Global variables
-     */
-    // Intent extra message
-    public static final String EXTRA_MESSAGE = "com.example.android.androidtraining.MESSAGE";
-
-    // Identifier for the saved instance
-    static final String COUNT = "counter";
-
-    // Counter
-    private int count;
-
-    // ActionBar listener
-    private ActionBar.OnNavigationListener mOnNavigationListener;
-
-    // TextViews global declaration
-    public TextView activityMonitor;
-    public TextView counter;
-    // SharedPreferences global decleration
-    SharedPreferences sharedPreferences;
 
     public MainActivity() {
         count = 0;
@@ -115,6 +127,33 @@ public class MainActivity extends ActionBarActivity {
         }
         // Activity monitor message
         activityMonitor.append(getLocalClassName() + ": onCreate()" + System.getProperty("line.separator"));
+
+        // Check programmatically that device & android api supports NFC
+        // NFC isn't available on the device
+        if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC)) {
+            /*
+             * Disable NFC features here.
+             * For example, disable menu items or buttons that activate
+             * NFC-related features
+             */
+            // Android Beam file transfer isn't supported
+        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            // If Android Beam isn't available, don't continue.
+            mAndroidBeamAvailable = false;
+            /*
+             * Disable Android Beam file transfer features here.
+             */
+        } else {
+            // Android Beam file transfer is available, continue
+            mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+            /*
+             * Instantiate a new FileUriCallback to handle requests for
+             * URIs
+             */
+            mFileUriCallback = new FileUriCallback();
+            // Set the dynamic callback for URI requests.
+            mNfcAdapter.setBeamPushUrisCallback(mFileUriCallback, this);
+        }
     }
 
     @Override
@@ -270,6 +309,38 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    // TODO: Check the sending via NFC transfer
+    // NFC transfer
+    // ... set up the URIs
+
+    /**
+     * Callback that Android Beam file transfer calls to get
+     * files to share
+     */
+    private class FileUriCallback implements NfcAdapter.CreateBeamUrisCallback {
+
+        public FileUriCallback() {
+
+        }
+
+        /**
+         * Create content URIs as needed to share with another device
+         */
+        @Override
+        public Uri[] createBeamUris(NfcEvent event) {
+            requestFile.setReadable(true, false);
+            // Get a URI for the File and add it to the list of URIs
+            Uri fileUri = Uri.fromFile(requestFile);
+            if (fileUri != null) {
+                mFileUris[0] = fileUri;
+            } else {
+                Log.e(TAG, "No File URI available for file");
+            }
+            return mFileUris;
+        }
+    }
+
+
     /**
      * Own methods
      */
@@ -351,5 +422,76 @@ public class MainActivity extends ActionBarActivity {
             startActivityForResult(mRequestFileIntent, REQUEST_FILE);
         }
     }
+
+     /** TODO: Check the receiving via NFC transfer
+     * Called from onNewIntent() for a SINGLE_TOP Activity
+     * or onCreate() for a new Activity. For onNewIntent(),
+     * remember to call setIntent() to store the most
+     * current Intent
+     *
+     */
+    private void handleViewIntent() {
+        // Get the intent action
+        mIntentNFCtransfer = getIntent();
+        String action = mIntentNFCtransfer.getAction();
+        /*
+         * For ACTION_VIEW, the Activity is being asked to display data.
+         * Get the URI.
+         */
+        if (TextUtils.equals(action, Intent.ACTION_VIEW)) {
+            // Get the URI from the Intent
+            Uri beamUri = mIntentNFCtransfer.getData();
+            /*
+             * Test for the type of URI, by getting its scheme value
+             */
+            if (TextUtils.equals(beamUri.getScheme(), "file")) {
+                mParentPath = handleContentUri(beamUri);
+            }
+        }
+    }
+
+    public String handleFileUri(Uri beamUri) {
+        // Get the path part of the URI
+        String fileName = beamUri.getPath();
+        // Create a File object for this filename
+        File copiedFile = new File(fileName);
+        // Get a string containing the file's parent directory
+        return copiedFile.getParent();
+    }
+
+    public File handleContentUri(Uri beamUri) {
+        // Position of the filename in the query Cursor
+        int filenameIndex;
+        // File object for the filename
+        File copiedFile;
+        // The filename stored in MediaStore
+        String fileName;
+        // Test the authority of the URI
+        if (!TextUtils.equals(beamUri.getAuthority(),MediaStore.AUTHORITY)) {
+            /*
+             * Handle content URIs for other content providers
+             */
+        } else {
+            // For a MediaStore content URI
+            // Get the column that contains the file name
+            String[] projection = { MediaStore.MediaColumns.DATA };
+            Cursor pathCursor = getContentResolver().query(beamUri, projection, null, null, null);
+            // Check for a valid cursor
+            if (pathCursor != null && pathCursor.moveToFirst()) {
+                // Get the column index in the Cursor
+                filenameIndex = pathCursor.getColumnIndex(MediaStore.MediaColumns.DATA);
+                // Get the full file name including path
+                fileName = pathCursor.getString(filenameIndex);
+                // Create a File object for the filename
+                copiedFile = new File(fileName);
+                return new File(copiedFile.getParent());
+            } else {
+                // The query didn't work; return null
+                return null;
+            }
+        }
+        return null;
+    }
+
 }
 
