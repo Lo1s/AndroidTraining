@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/widget_margin">
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/appwidget_dark_bg">
+
+            <TextView
+                android:id="@+id/textView_widget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Count: 0"
+                style="@style/FontColor"
+                android:padding="10dp"
+                />
+
+            <Button
+                android:id="@+id/button_widget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView_widget"
+                android:layout_centerHorizontal="true"
+                android:text="+"
+                android:background="@drawable/rectangle"
+                style="@style/FontColor" />
+
+
+        </RelativeLayout>
+
+
+
+</FrameLayout>

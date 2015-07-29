@@ -6,7 +6,7 @@
     <uses-feature
         android:name="android.hardware.Camera"
         android:required="true" />
-    <uses-feature 
+    <uses-feature
         android:name="android.hardware.NFC"
         android:required="true"/>
 
@@ -136,6 +136,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.androidtraining.MainActivity" />
         </activity>
+        
+        <receiver android:name="AppWidgetProviderTest" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/example_appwidget_info" />
+        </receiver>
+        
     </application>
 
 </manifest>
