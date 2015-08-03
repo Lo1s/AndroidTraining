@@ -1,6 +1,7 @@
 package com.example.android.androidtraining;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
@@ -94,7 +95,7 @@ public class LoginActivity extends ActionBarActivity {
         passwordRepeated = editTextPassRepeated.getText().toString();
 
         if ((firstName.length() > 0) && password.equals(passwordRepeated) && (password.length() >= 4)) {
-            // Values could be inputted into the database by the spaghetti code
+            // Values could be inputed into the database by the spaghetti code
             // which would look the same as in DbHelper.onCreate method (string sql command passed to db.exec..
             // This would be very bad approach for security and performance reasons (SQL injection, parsing multiple statements
             // Instead we use ContentValues class which stores the values in key-value pair and safely parse it to the db
@@ -117,5 +118,10 @@ public class LoginActivity extends ActionBarActivity {
             Toast.makeText(this, "Registration failed: Password at least 4 chars", Toast.LENGTH_LONG).show();
         } else if (firstName.length() <= 0)
             Toast.makeText(this, "Registration failed: Username not filled in", Toast.LENGTH_LONG).show();
+    }
+
+    // Show the database of already registered users
+    public void showRegistered(View view) {
+        startActivity(new Intent(this, DatabaseActivity.class));
     }
 }

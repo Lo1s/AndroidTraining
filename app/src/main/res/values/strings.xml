@@ -50,6 +50,12 @@
     <string name="button_bind_service">Bind Service</string>
     <string name="button_request_file">Request File</string>
     <string name="chooser_title">Share this message via</string>
+    <string name="button_database_title">Database</string>
+    <string name="button_media_title">Media</string>
+    <string name="button_media_raw">Raw Resource</string>
+    <string name="button_media_uri">URI Resource</string>
+    <string name="button_media_url">URL Resource</string>
+    <string name="button_release">Release !</string>
 
     <string name="title_activity_display_message">My Message</string>
     <string name="title_activity_display">Images</string>
@@ -79,5 +85,7 @@
     <string name="title_activity_login">Sign in</string>
     <string name="title_activity_intents">IntentsActivity</string>
     <string name="title_activity_file_select">FileSelectActivity</string>
+    <string name="title_activity_database">DatabaseActivity</string>
+    <string name="title_activity_media">MediaActivity</string>
 
 </resources>

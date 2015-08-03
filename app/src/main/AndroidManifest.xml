@@ -8,7 +8,7 @@
         android:required="true" />
     <uses-feature
         android:name="android.hardware.NFC"
-        android:required="true"/>
+        android:required="true" />
 
     <uses-permission android:name="android.permission.internet" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -27,6 +27,8 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- User permissions for nfc transfer + READ EXTERNAL is necessary but this app already has write access -->
     <uses-permission android:name="android.permission.NFC" />
+    <!-- Allows the background music -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -127,24 +129,45 @@
             android:parentActivityName=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.PICK" />
+
                 <category android:name="android.intent.category.OPENABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
                 <data android:mimeType="image/*" />
             </intent-filter>
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.androidtraining.MainActivity" />
         </activity>
-        
-        <receiver android:name="AppWidgetProviderTest" >
+
+        <receiver android:name=".AppWidgetProviderTest" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
+
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/example_appwidget_info" />
         </receiver>
-        
+
+        <activity
+            android:name=".DatabaseActivity"
+            android:label="@string/title_activity_database"
+            android:parentActivityName=".LoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.androidtraining.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".MediaActivity"
+            android:label="@string/title_activity_media"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.androidtraining.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

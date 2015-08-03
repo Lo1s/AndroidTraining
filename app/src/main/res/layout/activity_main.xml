@@ -69,6 +69,15 @@
             style="@style/FontColor"
             android:onClick="requestFile"/>
 
+        <Button
+            android:id="@+id/button_media"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="@string/button_media_title"
+            style="@style/FontColor"
+            android:onClick="startMediaActivity"/>
+
     </LinearLayout>
 
     <LinearLayout

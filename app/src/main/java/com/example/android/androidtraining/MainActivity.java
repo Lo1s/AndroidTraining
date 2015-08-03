@@ -59,7 +59,7 @@ public class MainActivity extends ActionBarActivity {
     // Identifier for the saved instance
     static final String COUNT = "counter";
     // Counter
-    private int count;
+    public static int count;
     // ActionBar listener
     private ActionBar.OnNavigationListener mOnNavigationListener;
     // TextViews global declaration
@@ -100,7 +100,6 @@ public class MainActivity extends ActionBarActivity {
     };
 
     public MainActivity() {
-        count = 0;
     }
 
     /**
@@ -493,5 +492,14 @@ public class MainActivity extends ActionBarActivity {
         return null;
     }
 
+    // Start media activity
+    public void startMediaActivity(View view) {
+        startActivity(new Intent(this, MediaActivity.class));
+    }
+
+    public static int incrementCount() {
+        count++;
+        return count;
+    }
 }
 
