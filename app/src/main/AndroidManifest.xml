@@ -29,6 +29,8 @@
     <uses-permission android:name="android.permission.NFC" />
     <!-- Allows the background music -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- Alows recording via mic -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -111,6 +113,17 @@
             android:enabled="true"
             android:exported="true" />
         <service android:name=".BindService" />
+        <service
+            android:name=".MediaService"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.example.android.androidtraining.action.PLAY" />
+                <action android:name="com.example.android.androidtraining.action.STOP" />
+                <action android:name="com.example.android.androidtraining.action.PLAY_FOREGROUND" />
+                <action android:name="com.example.android.androidtraining.action.STOP_FOREGROUND" />
+            </intent-filter>
+        </service>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -167,6 +180,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.androidtraining.MainActivity" />
+        </activity>
+        <activity
+            android:name=".RecordActivity"
+            android:label="@string/title_activity_record" >
         </activity>
     </application>
 

@@ -1,7 +1,9 @@
 package com.example.android.androidtraining;
 
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -9,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 
 
@@ -67,20 +70,18 @@ public class MediaActivity extends ActionBarActivity {
     }
 
     public void playRaw(View view) {
-        Toast.makeText(this, "Save some mp3 to IM/EM", Toast.LENGTH_LONG).show();
-        // mediaPlayer = MediaPlayer.create(this, R.raw);
-        // mediaPlayer.start(); // no need to call prepare(); create() does that for you
+        mediaPlayer = MediaPlayer.create(this, R.raw.thescript);
+        mediaPlayer.start(); // no need to call prepare(); create() does that for you
     }
 
     public void playURI(View view) throws IOException {
-        Toast.makeText(this, "Fill URI to mp3 !", Toast.LENGTH_SHORT).show();
-        /*File file = new File("myfile.mp3");
+        File file = new File("/sdcard/Download/The-Script---Hall-of-Fame-ft.-will.i.am.mp3");
         mediaPlayer = new MediaPlayer();
         Uri myUri = Uri.fromFile(file);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setDataSource(getApplicationContext(), myUri);
         mediaPlayer.prepare();
-        mediaPlayer.start();*/
+        mediaPlayer.start();
     }
 
     public void playURL(View view) {
@@ -97,8 +98,29 @@ public class MediaActivity extends ActionBarActivity {
         }
     }
 
-    // TODO: Re-do the playURL method to do all the loading in the background thread via service
-    // TODO: Add the lock button (to play in background even when the device sleeps)
-    
+    // Play media in a service
+    public void playViaService(View view) {
+        startService(new Intent(MediaService.ACTION_PLAY));
+    }
 
+    // Destroy service
+    public void destroyService(View view) {
+        startService(new Intent(MediaService.ACTION_STOP));
+    }
+
+    // Play media in a foreground service
+    public void playViaForegroundService(View view) {
+        startService(new Intent(MediaService.ACTION_PLAY_FOREGROUND));
+    }
+
+    // Stop the foreground service
+    public void stopForegroundService(View view) {
+        startService(new Intent(MediaService.ACTION_STOP_FOREGROUND));
+    }
+
+    // Start the record activity
+    public void recordThis(View view) {
+        Intent recordIntent = new Intent(this, RecordActivity.class);
+        startActivity(recordIntent);
+    }
 }

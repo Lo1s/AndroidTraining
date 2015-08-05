@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="horizontal"
     tools:context="com.example.android.androidtraining.MediaActivity">
@@ -23,6 +22,24 @@
             style="@style/FontColor"
             android:textAllCaps="false"
             android:onClick="release"/>
+
+        <Button
+            android:id="@+id/button_destroy_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_release_service"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="destroyService"/>
+
+        <Button
+            android:id="@+id/button_stop_foreground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_media_stop_foreground"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="stopForegroundService"/>
 
         <Button
             android:id="@+id/button_raw_media"
@@ -50,6 +67,33 @@
             android:textAllCaps="false"
             android:text="@string/button_media_url"
             android:onClick="playURL"/>
+
+        <Button
+            android:id="@+id/button_media_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/FontColor"
+            android:text="@string/button_media_service"
+            android:textAllCaps="false"
+            android:onClick="playViaService"/>
+
+        <Button
+            android:id="@+id/button_media_foreground_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_media_foreground_service"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="playViaForegroundService"/>
+
+        <Button
+            android:id="@+id/button_record"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_record"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="recordThis"/>
 
     </LinearLayout>
 

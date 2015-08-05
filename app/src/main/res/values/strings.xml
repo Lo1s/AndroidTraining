@@ -56,6 +56,11 @@
     <string name="button_media_uri">URI Resource</string>
     <string name="button_media_url">URL Resource</string>
     <string name="button_release">Release !</string>
+    <string name="button_media_service">Media Service</string>
+    <string name="button_release_service">Destroy service</string>
+    <string name="button_media_foreground_service">Media Foreground</string>
+    <string name="button_media_stop_foreground">Stop Foreground</string>
+    <string name="button_record">Record This !</string>
 
     <string name="title_activity_display_message">My Message</string>
     <string name="title_activity_display">Images</string>
@@ -87,5 +92,6 @@
     <string name="title_activity_file_select">FileSelectActivity</string>
     <string name="title_activity_database">DatabaseActivity</string>
     <string name="title_activity_media">MediaActivity</string>
+    <string name="title_activity_record">RecordActivity</string>
 
 </resources>
