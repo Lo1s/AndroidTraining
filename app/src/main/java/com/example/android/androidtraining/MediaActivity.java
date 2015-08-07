@@ -125,4 +125,9 @@ public class MediaActivity extends ActionBarActivity {
         Intent recordIntent = new Intent(this, RecordActivity.class);
         startActivity(recordIntent);
     }
+
+    // Launch Camera App
+    public void launchCameraApp(View view) {
+        startActivity(new Intent(this, CameraActivity.class));
+    }
 }

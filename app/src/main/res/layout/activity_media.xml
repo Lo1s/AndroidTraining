@@ -95,6 +95,15 @@
             style="@style/FontColor"
             android:onClick="recordThis"/>
 
+        <Button
+            android:id="@+id/button_camera_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_camera_app"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="launchCameraApp"/>
+
     </LinearLayout>
 
     <LinearLayout

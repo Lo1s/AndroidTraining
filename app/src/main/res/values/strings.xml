@@ -61,6 +61,8 @@
     <string name="button_media_foreground_service">Media Foreground</string>
     <string name="button_media_stop_foreground">Stop Foreground</string>
     <string name="button_record">Record This !</string>
+    <string name="button_camera_app">Camera App</string>
+    <string name="button_capture">Capture</string>
 
     <string name="title_activity_display_message">My Message</string>
     <string name="title_activity_display">Images</string>
@@ -93,5 +95,6 @@
     <string name="title_activity_database">DatabaseActivity</string>
     <string name="title_activity_media">MediaActivity</string>
     <string name="title_activity_record">RecordActivity</string>
+    <string name="title_activity_camera">CameraActivity</string>
 
 </resources>
