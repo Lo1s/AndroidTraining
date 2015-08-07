@@ -7,6 +7,7 @@
     tools:context="com.example.android.androidtraining.IntentsActivity">
 
     <LinearLayout
+        android:id="@+id/linearlayout_intents"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">

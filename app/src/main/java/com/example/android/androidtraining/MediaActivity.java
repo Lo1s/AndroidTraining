@@ -19,10 +19,12 @@ public class MediaActivity extends ActionBarActivity {
 
     private MediaPlayer mediaPlayer;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_media);
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
     }
 
     @Override

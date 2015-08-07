@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.actions.ReserveIntents;
@@ -108,6 +111,12 @@ public class IntentsActivity extends ActionBarActivity {
             if (RESULT_OK == resultCode) {
                 // TODO: Complete this to view the image !
                 Toast.makeText(this, "Complete this to view the image !", Toast.LENGTH_SHORT).show();
+                // Set the photo as background
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearlayout_intents);
+                Drawable imageDrawable = new BitmapDrawable(imageBitmap);
+                linearLayout.setBackground(imageDrawable);
             }
         } else if (REQUEST_IMAGE_CONTENT == requestCode) {
             if (RESULT_OK == resultCode) {

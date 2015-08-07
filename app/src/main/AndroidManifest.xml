@@ -31,6 +31,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- Alows recording via mic -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- Permission for bluetooth headset -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
 
     <application
         android:allowBackup="true"
@@ -185,6 +188,13 @@
             android:name=".RecordActivity"
             android:label="@string/title_activity_record" >
         </activity>
+
+        <receiver android:name=".RemoteReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
