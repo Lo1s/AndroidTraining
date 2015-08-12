@@ -109,7 +109,26 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_video_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_video_capture"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="launchVideoApp"/>
+
+        <Button
+            android:id="@+id/button_print_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_print_image"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="doPhotoPrint"/>
 
     </LinearLayout>
 

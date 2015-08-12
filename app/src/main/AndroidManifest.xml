@@ -6,7 +6,6 @@
     <uses-feature
         android:name="android.hardware.Camera"
         android:required="true" />
-
     <uses-feature
         android:name="android.hardware.NFC"
         android:required="true" />
@@ -199,6 +198,15 @@
         <activity
             android:name=".CameraActivity"
             android:label="@string/title_activity_camera"
+            android:parentActivityName=".MediaActivity"
+            android:screenOrientation="landscape" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.androidtraining.MediaActivity" />
+        </activity>
+        <activity
+            android:name=".VideoActivity"
+            android:label="@string/title_activity_video"
             android:parentActivityName=".MediaActivity"
             android:screenOrientation="landscape">
             <meta-data

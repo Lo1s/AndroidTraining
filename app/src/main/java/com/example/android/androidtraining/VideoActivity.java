@@ -3,9 +3,11 @@ package com.example.android.androidtraining;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Rect;
 import android.hardware.Camera;
+import android.media.CamcorderProfile;
+import android.media.MediaRecorder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -20,50 +22,18 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-public class CameraActivity extends AppCompatActivity {
-    private static final String LOG_TAG = "CameraActivity";
+public class VideoActivity extends AppCompatActivity {
+    private static final String LOG_TAG = "VideoActivity";
 
     private Camera mCamera;
     private CameraPreview mCameraPreview;
     private Camera.Parameters mParameters;
-    private String mCurrentPhotoPath = "";
-    private boolean isPicTaken = false;
-
-
-    /**
-     * 6th: Capture and Save Files
-     */
-    private Camera.PictureCallback mPictureCallback = new Camera.PictureCallback() {
-        @Override
-        public void onPictureTaken(byte[] data, Camera camera) {
-
-            File pictureFile = getOutputMediaFile(MediaActivity.MEDIA_TYPE_IMAGE);
-            mCurrentPhotoPath = pictureFile.getAbsolutePath();
-            if (pictureFile == null) {
-                Log.d(LOG_TAG, "Error creating media file, check storage permissions");
-                return;
-            }
-
-            try {
-                FileOutputStream fileOutputStream = new FileOutputStream(pictureFile);
-                fileOutputStream.write(data);
-                fileOutputStream.close();
-                isPicTaken = true;
-            } catch (FileNotFoundException ex) {
-                Log.d(LOG_TAG, "File not found: " + ex.getMessage());
-            } catch (IOException ex) {
-                Log.d(LOG_TAG, "Error accessing file: " + ex.getMessage());
-            }
-        }
-    };
+    private MediaRecorder mMediaRecorder;
+    private boolean isRecording = false;
 
     /**
      * 3rd: Create a Preview Class - previews the live images from the camera
@@ -74,6 +44,7 @@ public class CameraActivity extends AppCompatActivity {
 
         public CameraPreview(Context context, Camera camera) {
             super(context);
+
             mCamera = camera;
 
             // Install a SurfaceHolder.Callback so we get notified when the
@@ -90,8 +61,6 @@ public class CameraActivity extends AppCompatActivity {
             try {
                 mCamera.setPreviewDisplay(holder);
                 mCamera.startPreview();
-
-                startFaceDetection(); // start face detection feature
             } catch (IOException ex) {
                 Log.d(LOG_TAG, "Error setting camera preview: " + ex.getMessage());
             }
@@ -101,7 +70,6 @@ public class CameraActivity extends AppCompatActivity {
         public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
             // If your preview can change or rotate, take care of those events here.
             // Make sure to stop the preview before resizing or reformatting it.
-
             if (mHolder.getSurface() == null) {
                 // preview surface does not exist
                 return;
@@ -121,11 +89,9 @@ public class CameraActivity extends AppCompatActivity {
 
             // start preview with new settings
             try {
-                mCamera.setPreviewDisplay(holder);
+                mCamera.setPreviewDisplay(mHolder);
                 mCamera.startPreview();
-
-                startFaceDetection(); // re-start the face detection
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 Log.d(LOG_TAG, "Error starting camera preview: " + ex.getMessage());
             }
         }
@@ -136,74 +102,77 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera);
+        setContentView(R.layout.activity_video);
 
         if (!checkCameraHardware(this)) {
-            Toast.makeText(CameraActivity.this, "Camera not found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(VideoActivity.this, "Camera not found", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, MediaActivity.class));
         }
 
-        // Create an instance of Camera
         mCamera = getCameraInstance();
 
-        /** Metering and focus areas */
-        // set Camera parameters
-        mParameters = mCamera.getParameters();
-
-        if (mParameters.getMaxNumMeteringAreas() > 0) { // check that metering areas are supported
-            List<Camera.Area> meteringAreas = new ArrayList<Camera.Area>();
-
-            Rect areaRect1 = new Rect(-100, -100, 100, 100); // specify an area in center of image
-            meteringAreas.add(new Camera.Area(areaRect1, 600)); // set weight to 60%
-            Rect areaRect2 = new Rect(800, -1000, 1000, -800);  // specify an area in upper right corner of image
-            meteringAreas.add(new Camera.Area(areaRect2, 400)); // set weight to 40%
-            mParameters.setMeteringAreas(meteringAreas);
-        }
-
-        mCamera.setParameters(mParameters);
-        mCamera.setFaceDetectionListener(new MyFaceDetectionListener());
-
         /** 4th: Build a Preview Layout */
+
         // Create our Preview view and set it as the content of our activity.
         mCameraPreview = new CameraPreview(this, mCamera);
-        FrameLayout preview = (FrameLayout) findViewById(R.id.frame_layout_camera_preview);
+        FrameLayout preview = (FrameLayout) findViewById(R.id.frame_layout_video_preview);
         preview.addView(mCameraPreview);
 
-        /** 5th: Setup Listeners for capture */
-        Button captureButton = (Button) findViewById(R.id.button_capture);
+        /** 6th: Register button onClick listener which handles recording procedure */
+        final Button captureButton = (Button) findViewById(R.id.button_video_capture);
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Restart the Preview after picture is taken
-                if (!isPicTaken)
-                    mCamera.takePicture(null, null, mPictureCallback);
-                else {
-                    mCamera.startPreview();
-                    galleryAddPic();
-                    isPicTaken = false;
+                if (isRecording) {
+                    // stop recording and release camera
+                    mMediaRecorder.stop();  // stop the recording
+                    releaseMediaRecorder(); // release the MediaRecorder object
+                    mCamera.lock();         // take camera access back from MediaRecorder
+                    // inform the user that recording has stopped
+                    captureButton.setText("Capture");
+                    isRecording = false;
+                } else {
+                    // initialize video camera
+                    if (prepareVideoRecorder()) {
+                        // Camera is available and unlocked, MediaRecorder is prepared,
+                        // now you can start recording
+                        mMediaRecorder.start();
+                        // inform the user that recording has started
+                        captureButton.setText("Stop");
+                        isRecording = true;
+                    } else {
+                        // prepare didn't work, release the camera
+                        releaseMediaRecorder();
+                        // inform user
+                    }
                 }
             }
         });
 
     }
 
-    /**
-     * 7th: Release the Camera
-     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        releaseMediaRecorder(); // if you are using MediaRecorder, release it first
+        releaseCamera(); // release the camera immediately on pause event
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mCamera.release();
+        releaseCamera();
         mCameraPreview = new CameraPreview(this, null);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_camera, menu);
+        getMenuInflater().inflate(R.menu.menu_video, menu);
         return true;
     }
 
@@ -228,7 +197,7 @@ public class CameraActivity extends AppCompatActivity {
     private boolean checkCameraHardware(Context context) {
         if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             // this device has a camera
-            Toast.makeText(CameraActivity.this, "Number of cameras: " + Camera.getNumberOfCameras(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Number of cameras: " + Camera.getNumberOfCameras(), Toast.LENGTH_SHORT).show();
             return true;
         } else {
             // no camera on this device
@@ -243,9 +212,8 @@ public class CameraActivity extends AppCompatActivity {
         Camera camera = null;
 
         try {
-            camera = Camera.open(); // attempt to open Camera instance
-
-        } catch (Exception e) {
+            camera = Camera.open(); // attempt to open camera
+        } catch (Exception ex) {
             // Camera is not available (in use or does not exist)
             Log.e(LOG_TAG, "Camera not available");
         }
@@ -253,16 +221,58 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     /**
-     * Checking camera features
+     * 5th: Configuring MediaRecorder
      */
-    public Camera.Parameters checkCameraFeatures() {
-        Camera.Parameters cameraParameters = null;
-        if (mCamera != null) {
-            cameraParameters = mCamera.getParameters();
-            Log.i("checkCameraParameters: ", "Zoom supported: " + cameraParameters.isZoomSupported());
-            Log.i("checkCameraParameters: ", "Auto exposure: " + cameraParameters.isAutoExposureLockSupported());
+
+    private boolean prepareVideoRecorder() {
+
+        mMediaRecorder = new MediaRecorder();
+
+        // Step 1: Unlock and set camera to MediaRecorder
+        mCamera.unlock();
+        mMediaRecorder.setCamera(mCamera);
+
+        // Step 2: Set sources
+        mMediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
+        mMediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+
+        // Step 3: Set a CamcorderProfile (requires API Level 8 or higher)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO)
+            mMediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH));
+        else {
+            // Step 3: Set output format and encoding (for versions prior to API Level 8)
+            mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+            mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+            mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT);
         }
-        return cameraParameters;
+
+        // Step 4: Set output file
+        mMediaRecorder.setOutputFile(getOutputMediaFile(MediaActivity.MEDIA_TYPE_VIDEO).toString());
+
+        // Step 5: Set the preview output
+        mMediaRecorder.setPreviewDisplay(mCameraPreview.getHolder().getSurface());
+
+        // Step 6: Prepare configured MediaRecorder
+        try {
+            mMediaRecorder.prepare();
+        } catch (IllegalStateException e) {
+            Log.d(LOG_TAG, "IllegalStateException preparing MediaRecorder: " + e.getMessage());
+            releaseMediaRecorder();
+            return false;
+        } catch (IOException e) {
+            Log.d(LOG_TAG, "IOException preparing MediaRecorder: " + e.getMessage());
+            releaseMediaRecorder();
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * Create a file Uri for saving an image or video
+     */
+    private static Uri getOutputMediaFileUri(int type) {
+        return Uri.fromFile(getOutputMediaFile(type));
     }
 
     /**
@@ -301,37 +311,21 @@ public class CameraActivity extends AppCompatActivity {
         return mediaFile;
     }
 
-    class MyFaceDetectionListener implements Camera.FaceDetectionListener {
-
-        @Override
-        public void onFaceDetection(Camera.Face[] faces, Camera camera) {
-            if (faces.length > 0) {
-                Toast.makeText(getApplicationContext(), "Face detected ! @ " + "xCenter: " +
-                        faces[0].rect.centerX() + " yCenter: " + faces[0].rect.centerY(), Toast.LENGTH_SHORT).show();
-                Log.d("FaceDetection: ", "face detected: " + faces.length +
-                        " Face 1 Location X: " + faces[0].rect.centerX() +
-                        " Y: " + faces[0].rect.centerY());
-            }
+    private void releaseMediaRecorder() {
+        if (mMediaRecorder != null) {
+            mMediaRecorder.reset(); // clear recorder configuration
+            mMediaRecorder.release(); // release the recorder object
+            mMediaRecorder = null;
+            mCamera.lock();
         }
     }
 
-    public void startFaceDetection() {
-        // Try starting face detection
-        Camera.Parameters params = mCamera.getParameters();
-
-        // start face detection only *after* preview has started
-        if (mParameters.getMaxNumDetectedFaces() > 0) {
-            // camera support face detection, so can start it
-            mCamera.startFaceDetection();
+    private void releaseCamera() {
+        if (mCamera != null) {
+            mCamera.release();
+            mCamera = null;
         }
     }
 
-    // Add pic to media gallery
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        this.sendBroadcast(mediaScanIntent);
-    }
+
 }

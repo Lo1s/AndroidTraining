@@ -1,10 +1,13 @@
 package com.example.android.androidtraining;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.print.PrintHelper;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +22,8 @@ public class MediaActivity extends ActionBarActivity {
 
     private MediaPlayer mediaPlayer;
 
+    public static final int MEDIA_TYPE_IMAGE = 1;
+    public static final int MEDIA_TYPE_VIDEO = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,5 +134,18 @@ public class MediaActivity extends ActionBarActivity {
     // Launch Camera App
     public void launchCameraApp(View view) {
         startActivity(new Intent(this, CameraActivity.class));
+    }
+
+    // Launch Video App
+    public void launchVideoApp(View view) {
+        startActivity(new Intent(this, VideoActivity.class));
+    }
+
+    // Print that photo
+    public void doPhotoPrint(View view) {
+        PrintHelper printHelper = new PrintHelper(this);
+        printHelper.setScaleMode(PrintHelper.SCALE_MODE_FIT);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.rafa);
+        printHelper.printBitmap("rafa.jpg - test print", bitmap);
     }
 }
