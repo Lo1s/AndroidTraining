@@ -67,6 +67,7 @@
     <string name="button_print_image">Print Image</string>
     <string name="button_print_document">Print Document</string>
 
+
     <string name="title_activity_display_message">My Message</string>
     <string name="title_activity_display">Images</string>
     <string name="title_saved_string">Saved String:</string>
@@ -100,5 +101,10 @@
     <string name="title_activity_record">RecordActivity</string>
     <string name="title_activity_camera">CameraActivity</string>
     <string name="title_activity_video">VideoActivity</string>
+    <string name="title_activity_bitmap">BitmapActivity</string>
+
+    <string name="button_load_raw">Load Raw</string>
+    <string name="button_load_bitmap">Load Bitmap</string>
+    <string name="textView_load_time">Load time:</string>
 
 </resources>

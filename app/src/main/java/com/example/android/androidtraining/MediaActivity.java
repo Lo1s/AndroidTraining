@@ -12,7 +12,6 @@ import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintJob;
 import android.print.PrintManager;
-import android.print.pdf.PrintedPdfDocument;
 import android.support.v4.print.PrintHelper;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -205,6 +204,11 @@ public class MediaActivity extends ActionBarActivity {
 
         // Save the job object for later status checking
         mPrintJobs.add(printJob);
+    }
+
+    // Testing bitmap loading
+    public void loadBitmaps(View view) {
+        startActivity(new Intent(this, BitmapActivity.class));
     }
 
 }

@@ -139,6 +139,15 @@
             style="@style/FontColor"
             android:onClick="doWebViewPrint"/>
 
+        <Button
+            android:id="@+id/button_bitmap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_load_bitmap"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="loadBitmaps"/>
+
     </LinearLayout>
 
 </LinearLayout>

@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.android.androidtraining.BitmapActivity">
+
+    <TextView
+        android:id="@+id/textView_bitmap_load_speed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/textView_load_time"
+        style="@style/FontColor.BIG"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/imageView_loadBitmap"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_centerVertical="true"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/imageView_loadBitmap"
+        >
+
+        <Button
+            android:id="@+id/load_raw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_load_raw"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="loadRaw"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

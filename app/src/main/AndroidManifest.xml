@@ -208,7 +208,15 @@
             android:name=".VideoActivity"
             android:label="@string/title_activity_video"
             android:parentActivityName=".MediaActivity"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.androidtraining.MediaActivity" />
+        </activity>
+        <activity
+            android:name=".BitmapActivity"
+            android:label="@string/title_activity_bitmap"
+            android:parentActivityName=".MediaActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.androidtraining.MediaActivity" />
