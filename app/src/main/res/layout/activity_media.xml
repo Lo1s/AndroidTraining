@@ -130,6 +130,15 @@
             style="@style/FontColor"
             android:onClick="doPhotoPrint"/>
 
+        <Button
+            android:id="@+id/button_print_document"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_print_document"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="doWebViewPrint"/>
+
     </LinearLayout>
 
 </LinearLayout>

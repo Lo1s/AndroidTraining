@@ -1,5 +1,6 @@
 package com.example.android.androidtraining;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,20 +8,31 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintJob;
+import android.print.PrintManager;
+import android.print.pdf.PrintedPdfDocument;
 import android.support.v4.print.PrintHelper;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class MediaActivity extends ActionBarActivity {
 
     private MediaPlayer mediaPlayer;
+    private WebView mWebView;
+    private ArrayList<PrintJob> mPrintJobs = new ArrayList<>();
 
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
@@ -148,4 +160,51 @@ public class MediaActivity extends ActionBarActivity {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.rafa);
         printHelper.printBitmap("rafa.jpg - test print", bitmap);
     }
+
+    // Create WebView client to load the HTML document
+    public void doWebViewPrint(View view) {
+        // Create a WebView object specifically for printing
+        WebView webView = new WebView(getApplicationContext());
+        webView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return super.shouldOverrideUrlLoading(view, url);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                Log.i("MediaActivity", "page finished loading " + url);
+                createWebPrintJob(view);
+                mWebView = null;
+            }
+        });
+
+        // Generate an HTML document on the fly
+        String htmlDocument = "<html><body><h1>Test Content</h1><p>Testing, testing, testing..</p>" +
+                "</body></html>";
+        webView.loadDataWithBaseURL(null, htmlDocument, "text/HTML", "UTF-8", null);
+
+        // Keep a reference to WebView object until you pass the PrintDocumentAdapter
+        // to the PrintManager
+        mWebView = webView;
+    }
+
+    // Creates the print job for the HTML document
+    private void createWebPrintJob(WebView webView) {
+
+        // Get a PrintManager instance
+        PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
+
+        // Get a print adapter instance
+        PrintDocumentAdapter printDocumentAdapter = webView.createPrintDocumentAdapter();
+
+        // Create a print job with name and adapter instance
+        String jobName = getString(R.string.app_name) + " Document";
+        PrintJob printJob = printManager.print(jobName, printDocumentAdapter, new PrintAttributes.Builder().build());
+
+        // Save the job object for later status checking
+        mPrintJobs.add(printJob);
+    }
+
 }

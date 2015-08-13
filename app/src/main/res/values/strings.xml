@@ -65,6 +65,7 @@
     <string name="button_capture">Capture</string>
     <string name="button_video_capture">Video App</string>
     <string name="button_print_image">Print Image</string>
+    <string name="button_print_document">Print Document</string>
 
     <string name="title_activity_display_message">My Message</string>
     <string name="title_activity_display">Images</string>
