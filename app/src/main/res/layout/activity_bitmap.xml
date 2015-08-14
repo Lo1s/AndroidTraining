@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp"
     tools:context="com.example.android.androidtraining.BitmapActivity">
 
     <TextView
@@ -16,11 +16,13 @@
 
     <ImageView
         android:id="@+id/imageView_loadBitmap"
+        android:layout_below="@id/textView_bitmap_load_speed"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_centerVertical="true"/>
 
     <LinearLayout
+        android:id="@+id/linearLayout_buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -28,7 +30,7 @@
         >
 
         <Button
-            android:id="@+id/load_raw"
+            android:id="@+id/button_load_raw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_load_raw"
@@ -36,8 +38,79 @@
             style="@style/FontColor"
             android:onClick="loadRaw"/>
 
+        <Button
+            android:id="@+id/button_load_efficiently"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_load_efficiently"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="loadEfficiently"/>
+
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/linearLayout_buttons2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/linearLayout_buttons">
+
+        <Button
+            android:id="@+id/button_load_asynchronously"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_load_asynchronously"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="loadAsynchronously"/>
+
+        <Button
+            android:id="@+id/button_concurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_concurrency"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="loadConcurrency"/>
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <RadioButton
+            android:id="@+id/radio_100_100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_100_100"
+            android:onClick="onRadioButtonClicked"/>
+
+        <RadioButton
+            android:id="@+id/radio_400_400"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_400_400"
+            android:onClick="onRadioButtonClicked"/>
+
+        <RadioButton
+            android:id="@+id/radio_800_800"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_800_800"
+            android:onClick="onRadioButtonClicked"/>
+
+        <RadioButton
+            android:id="@+id/radio_1600_1600"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_1600_1600"
+            android:onClick="onRadioButtonClicked"/>
+
+    </RadioGroup>
 
 
 </RelativeLayout>

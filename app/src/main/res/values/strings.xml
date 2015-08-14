@@ -105,6 +105,13 @@
 
     <string name="button_load_raw">Load Raw</string>
     <string name="button_load_bitmap">Load Bitmap</string>
-    <string name="textView_load_time">Load time:</string>
+    <string name="textView_load_time">Load time</string>
+    <string name="button_load_efficiently">Load Efficiently</string>
+    <string name="radio_100_100">100x100</string>
+    <string name="radio_400_400">400x400</string>
+    <string name="radio_800_800">800x800</string>
+    <string name="radio_1600_1600">1.6x1.6</string>
+    <string name="button_load_asynchronously">AsyncTask</string>
+    <string name="button_concurrency">Concurrency</string>
 
 </resources>
