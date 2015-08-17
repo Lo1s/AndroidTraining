@@ -211,4 +211,14 @@ public class MediaActivity extends ActionBarActivity {
         startActivity(new Intent(this, BitmapActivity.class));
     }
 
+    // Test ViewPager
+    public void startViewPagerActivity(View view) {
+        startActivity(new Intent(this, ViewPagerActivity.class));
+    }
+
+    // Test GridView
+    public void startGridViewActivity(View view) {
+        startActivity(new Intent(this, GridViewActivity.class));
+    }
+
 }

@@ -113,5 +113,11 @@
     <string name="radio_1600_1600">1.6x1.6</string>
     <string name="button_load_asynchronously">AsyncTask</string>
     <string name="button_concurrency">Concurrency</string>
+    <string name="button_cache_load">Cache</string>
+    <string name="button_viewpager">ViewPager</string>
+    <string name="title_activity_view_pager">ViewPagerActivity</string>
+    <string name="imageView_viewPager_test">ViewPager test</string>
+    <string name="title_activity_grid">GridActivity</string>
+    <string name="button_grid_view">GridView</string>
 
 </resources>

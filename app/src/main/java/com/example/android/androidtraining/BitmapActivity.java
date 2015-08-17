@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.util.LruCache;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -24,14 +25,47 @@ public class BitmapActivity extends AppCompatActivity {
     private long startTime;
     private long endTime;
     private int radioHeight = 100;
-    private int radioWeight = 100;
+    private int radioWidth = 100;
     private Bitmap mPlaceHolderBitmap;
+    private LruCache<String, Bitmap> mMemoryCache;
+    private DiskLruCache mDiskLruCache;
+    private final Object mDiskCacheLock = new Object();
+    private boolean mDiskCacheStarting = true;
+    private static final long DISK_CACHE_SIZE = 1024 * 1014 * 10; // 10MB
+    private static final String DISK_CACHE_SUBDIR = "thumbnails";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bitmap);
+
+        /** Initialize memory cache */
+        // Get max available VM memory, exceeding this amount will throw an
+        // OutOfMemory exception. Stored in kilobytes as LruCache takes an
+        // int in its constructor.
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+
+        // Use 1/8th of the available memory for this memory cache
+        final int cacheSize = maxMemory / 8;
+
+        /** Initialize disk cache */
+
+        /** Retain fragment in order to save the reference to the cached files if device is being rotated  */
+        RetainFragment retainFragment = RetainFragment.findOrCreateRetaingFragment(getFragmentManager());
+        mMemoryCache = retainFragment.mRetainedCache;
+        if (mMemoryCache == null) {
+            mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+                @Override
+                protected int sizeOf(String key, Bitmap value) {
+                    // The cache size will be measured in kilobytes rather than
+                    // number of items.
+                    return value.getByteCount() / 1024;
+                }
+            };
+            retainFragment.mRetainedCache = mMemoryCache;
+        }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -108,7 +142,7 @@ public class BitmapActivity extends AppCompatActivity {
             // Calculate the largest inSampleSize value that is a power of 2 and keeps both
             // height and width larger than the requested height and width.
             while ((halfHeight / inSampleSize) > reqHeight
-                && (halfWidth / inSampleSize) > reqWidth) {
+                    && (halfWidth / inSampleSize) > reqWidth) {
                 inSampleSize *= 2;
             }
         }
@@ -133,7 +167,7 @@ public class BitmapActivity extends AppCompatActivity {
     public void loadEfficiently(View view) {
         ImageView imageView = (ImageView) findViewById(R.id.imageView_loadBitmap);
         startTime = System.currentTimeMillis();
-        imageView.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.gtav, radioWeight, radioHeight));
+        imageView.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.gtav, radioWidth, radioHeight));
         endTime = System.currentTimeMillis();
         TextView textView = (TextView) findViewById(R.id.textView_bitmap_load_speed);
         textView.setText(endTime - startTime + " ms");
@@ -148,19 +182,19 @@ public class BitmapActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.radio_100_100:
                 radioHeight = 100;
-                radioWeight = 100;
+                radioWidth = 100;
                 break;
             case R.id.radio_400_400:
                 radioHeight = 400;
-                radioWeight = 400;
+                radioWidth = 400;
                 break;
             case R.id.radio_800_800:
                 radioHeight = 800;
-                radioWeight = 800;
+                radioWidth = 800;
                 break;
             case R.id.radio_1600_1600:
                 radioHeight = 1600;
-                radioWeight = 1600;
+                radioWidth = 1600;
                 break;
         }
 
@@ -180,7 +214,9 @@ public class BitmapActivity extends AppCompatActivity {
         @Override
         protected Bitmap doInBackground(Integer... params) {
             data = params[0];
-            return decodeSampledBitmapFromResource(getResources(), data, radioWeight, radioHeight);
+            final Bitmap bitmap = decodeSampledBitmapFromResource(getResources(), data, radioWidth, radioHeight);
+            addBitmapToMemoryCache(String.valueOf(data), bitmap);
+            return bitmap;
         }
 
         // Once complete, see if ImageView is still around and set bitmap.
@@ -271,11 +307,101 @@ public class BitmapActivity extends AppCompatActivity {
     private static BitmapWorkerTask getBitmapWorkerTask(ImageView imageView) {
         if (imageView != null) {
             final Drawable drawable = imageView.getDrawable();
-            if (drawable instanceof  AsyncDrawable) {
+            if (drawable instanceof AsyncDrawable) {
                 final AsyncDrawable asyncDrawable = (AsyncDrawable) drawable;
                 return asyncDrawable.getBitmapWorkerTask();
             }
         }
         return null;
     }
+
+    /**
+     * Cache bitmap
+     */
+    public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+        if (getBitmapFromMemCache(key) == null) {
+            mMemoryCache.put(key, bitmap);
+        }
+    }
+
+    public Bitmap getBitmapFromMemCache(String key) {
+        return mMemoryCache.get(key);
+    }
+
+    public void cacheLoad(View view) {
+        ImageView imageView = (ImageView) findViewById(R.id.imageView_loadBitmap);
+        TextView textView = (TextView) findViewById(R.id.textView_bitmap_load_speed);
+
+        startTime = System.currentTimeMillis();
+        final String imageKey = String.valueOf(R.drawable.gtav);
+
+        final Bitmap bitmap = getBitmapFromMemCache(imageKey);
+        if (bitmap != null) {
+            Toast.makeText(BitmapActivity.this, "Loaded from cache", Toast.LENGTH_SHORT).show();
+            imageView.setImageBitmap(bitmap);
+        } else {
+            imageView.setImageResource(R.drawable.gtav);
+            BitmapWorkerTask task = new BitmapWorkerTask(imageView);
+            task.execute(R.drawable.gtav);
+            Toast.makeText(BitmapActivity.this, "Loaded from resource", Toast.LENGTH_SHORT).show();
+        }
+        endTime = System.currentTimeMillis();
+        textView.setText(endTime - startTime + " ms");
+    }
+
+    // TODO: Complete from http://developer.android.com/training/displaying-bitmaps/cache-bitmap.html
+    // Snapshot understanding is the issue at the moment
+    // Disk Cache AsyncTask class and methods
+    /*class InitDiskCacheTask extends AsyncTask<File, Void, Void> {
+
+        @Override
+        protected Void doInBackground(File... params) {
+
+            try {
+                synchronized (mDiskCacheLock) {
+                    File cacheDir = params[0];
+                    mDiskLruCache = DiskLruCache.open(cacheDir, 1, 1, DISK_CACHE_SIZE);
+                    mDiskCacheStarting = false; // Finished initialization
+                    mDiskLruCache.notifyAll(); // Wake any waiting threads
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    class BitmapWorkerTaskDisk extends AsyncTask<Integer, Void, Bitmap> {
+
+        @Override
+        protected Bitmap doInBackground(Integer... params) {
+            final String imageKey = String.valueOf(params[0]);
+
+            // Check disk cache in background thread
+            Bitmap bitmap =
+        }
+    }
+
+    public Bitmap getBitmapFromDiskCache(String key) {
+        synchronized (mDiskCacheLock) {
+            // Wait while disk cache is started from background thread
+            while (mDiskCacheStarting) {
+                try {
+                    mDiskCacheLock.wait();
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+            if (mDiskLruCache != null) {
+                try {
+
+
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+        }
+    }*/
 }

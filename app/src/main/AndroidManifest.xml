@@ -221,6 +221,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.androidtraining.MediaActivity" />
         </activity>
+        <activity
+            android:name=".ViewPagerActivity"
+            android:label="@string/title_activity_view_pager"
+            android:parentActivityName=".MediaActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.androidtraining.MediaActivity" />
+        </activity>
+        <activity
+            android:name=".GridViewActivity"
+            android:label="@string/title_activity_grid" >
+        </activity>
     </application>
 
 </manifest>

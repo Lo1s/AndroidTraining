@@ -47,6 +47,15 @@
             style="@style/FontColor"
             android:onClick="loadEfficiently"/>
 
+        <Button
+            android:id="@+id/button_cache_load"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_cache_load"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="cacheLoad"/>
+
     </LinearLayout>
 
     <LinearLayout

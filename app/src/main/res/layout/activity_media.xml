@@ -148,6 +148,24 @@
             style="@style/FontColor"
             android:onClick="loadBitmaps"/>
 
+        <Button
+            android:id="@+id/button_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_viewpager"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="startViewPagerActivity"/>
+
+        <Button
+            android:id="@+id/button_gridview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_grid_view"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="startGridViewActivity"/>
+
     </LinearLayout>
 
 </LinearLayout>
