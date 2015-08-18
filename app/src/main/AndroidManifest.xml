@@ -9,6 +9,12 @@
     <uses-feature
         android:name="android.hardware.NFC"
         android:required="true" />
+    <!-- For OpenGL purposes -->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"
+        />
+
 
     <uses-permission android:name="android.permission.internet" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -34,6 +40,7 @@
     <!-- Permission for bluetooth headset -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.CAMERA" />
+
 
     <application
         android:allowBackup="true"
@@ -232,6 +239,14 @@
         <activity
             android:name=".GridViewActivity"
             android:label="@string/title_activity_grid" >
+        </activity>
+        <activity
+            android:name=".OpenGLActivity"
+            android:label="@string/title_activity_open_gl"
+            android:parentActivityName=".MediaActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.androidtraining.MediaActivity" />
         </activity>
     </application>
 

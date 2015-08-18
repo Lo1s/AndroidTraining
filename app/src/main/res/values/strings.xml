@@ -119,5 +119,6 @@
     <string name="imageView_viewPager_test">ViewPager test</string>
     <string name="title_activity_grid">GridActivity</string>
     <string name="button_grid_view">GridView</string>
+    <string name="title_activity_open_gl">OpenGLActivity</string>
 
 </resources>

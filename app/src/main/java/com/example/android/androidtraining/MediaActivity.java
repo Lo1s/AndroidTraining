@@ -221,4 +221,9 @@ public class MediaActivity extends ActionBarActivity {
         startActivity(new Intent(this, GridViewActivity.class));
     }
 
+    // Test OpenGL
+    public void startOpenGLActivity(View view) {
+        startActivity(new Intent(this, OpenGLActivity.class));
+    }
+
 }

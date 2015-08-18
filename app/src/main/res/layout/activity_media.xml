@@ -166,6 +166,15 @@
             style="@style/FontColor"
             android:onClick="startGridViewActivity"/>
 
+        <Button
+            android:id="@+id/button_opengl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="OpenGL"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="startOpenGLActivity"/>
+
     </LinearLayout>
 
 </LinearLayout>
