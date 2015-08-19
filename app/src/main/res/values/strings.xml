@@ -120,5 +120,13 @@
     <string name="title_activity_grid">GridActivity</string>
     <string name="button_grid_view">GridView</string>
     <string name="title_activity_open_gl">OpenGLActivity</string>
+    <string name="title_activity_animation">AnimationActivity</string>
+    <string name="button_animation">Animation</string>
+    <string name="textView_title">Title</string>
+    <string name="textView1_sceneA">Text Line 1</string>
+    <string name="textView2_sceneA">Text Line 2</string>
+    <string name="button_start_animation">Start Animation</string>
+    <string name="button_add_textView">Add TextView</string>
+    <string name="button_remove_me">Remove Me !</string>
 
 </resources>

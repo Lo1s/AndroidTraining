@@ -81,6 +81,40 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/third_row_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/second_row_buttons">
+
+        <Button
+            android:id="@+id/button_animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_animation"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="startAnimationActivity"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Free"
+            android:textAllCaps="false"
+            style="@style/FontColor"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Free"
+            android:textAllCaps="false"
+            style="@style/FontColor"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/toolbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

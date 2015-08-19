@@ -501,5 +501,10 @@ public class MainActivity extends ActionBarActivity {
         count++;
         return count;
     }
+
+    // Start Animation activity
+    public void startAnimationActivity(View view) {
+        startActivity(new Intent(this, AnimationActivity.class));
+    }
 }
 
