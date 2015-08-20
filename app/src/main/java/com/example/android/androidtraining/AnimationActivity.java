@@ -1,20 +1,18 @@
 package com.example.android.androidtraining;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.ChangeBounds;
 import android.transition.Fade;
-import android.transition.PathMotion;
 import android.transition.Scene;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class AnimationActivity extends AppCompatActivity {
@@ -27,7 +25,15 @@ public class AnimationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animation);
+
+        mContentView = findViewById(R.id.content);
+        mLoadingView = findViewById(R.id.loading_content);
+
+        // Initially hide the content view.
+        mContentView.setVisibility(View.GONE);
     }
+
+    boolean upDown = true;
 
     public void animateScene(View view) {
         // Create the scene root for the scenes in this app
@@ -48,45 +54,106 @@ public class AnimationActivity extends AppCompatActivity {
         Transition transitionSet = TransitionInflater.from(this)
                 .inflateTransition(R.transition.auto_transition);
 
-        TransitionManager.go(mAnotherScene, transitionSet);
+        if (upDown) {
+            TransitionManager.go(mAnotherScene, transitionSet);
+            upDown = false;
+        } else {
+            TransitionManager.go(mAscene, transitionSet);
+            upDown = true;
+        }
 
     }
 
     private TextView mLabelText;
     private Fade mFade;
     private ViewGroup mRootView;
-    private int textViewCount = 1;
 
     public void addTextView(View view) {
-        // Create a new TextView and set some View properties
-        mLabelText = new TextView(this);
-        mLabelText.setText("TextView" + textViewCount++);
+        if (mLabelText == null) {
+            // Create a new TextView and set some View properties
+            mLabelText = new TextView(this);
+            mLabelText.setText("TextView");
 
-        // Get the root view and create a transition
-        mRootView = (ViewGroup) findViewById(R.id.scene_root2);
-        mFade = new Fade(Fade.IN);
+            // Get the root view and create a transition
+            mRootView = (ViewGroup) findViewById(R.id.scene_root2);
+            mFade = new Fade(Fade.IN);
 
-        // Start recording changes to the view hierarchy
-        TransitionManager.beginDelayedTransition(mRootView, mFade);
+            // Start recording changes to the view hierarchy
+            TransitionManager.beginDelayedTransition(mRootView, mFade);
 
-        // Add the new TextView to the view hierarchy
-        mRootView.addView(mLabelText);
+            // Add the new TextView to the view hierarchy
+            mRootView.addView(mLabelText);
 
-        // When the system redraws the screen to show this update,
-        // the framework will animate the addition as a fade in
+            // When the system redraws the screen to show this update,
+            // the framework will animate the addition as a fade in
+        }
     }
 
-    // Remove me animation
+    // Move left-to-right/right-to-left animation
     ChangeBounds changeBounds;
-    public void removeMe(View view) {
-        mRootView = (ViewGroup) findViewById(R.id.root_layout);
+    boolean moveRight = true;
+    Scene leftMoveScene;
+    Scene rightMoveScene;
 
-        changeBounds = new ChangeBounds();
+    public void moveMe(View view) {
+        mSceneRoot = (ViewGroup) findViewById(R.id.frameLayout_button_move);
+        Transition transition = new ChangeBounds();
 
-        TransitionManager.beginDelayedTransition(mRootView, changeBounds);
+        if (moveRight) {
+            rightMoveScene = Scene.getSceneForLayout(mSceneRoot, R.layout.button_move_right, this);
+            TransitionManager.go(rightMoveScene, transition);
+            moveRight = false;
+        } else {
+            leftMoveScene = Scene.getSceneForLayout(mSceneRoot, R.layout.button_move_left, this);
+            TransitionManager.go(leftMoveScene, transition);
+            moveRight = true;
+        }
 
-        mRootView.removeView(findViewById(R.id.button_remove_me));
+    }
 
+    // Test Cross Fade animation
+    private View mContentView;
+    private View mLoadingView;
+    private int mShortAnimationDuration;
+    public void startCrossFade(View view) {
+
+        // Retrieve and cache the system's default "short" animation time.
+        mShortAnimationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        crossFade();
+    }
+
+    // Cross fade animation
+    private void crossFade() {
+        // Set the content view to 0% opacity but visible, so that it is visible
+        // (but fully transparent) during the animation.
+        mContentView.setAlpha(0f);
+        mContentView.setVisibility(View.VISIBLE);
+
+        // Animate the content view to 100% opacity, and clear any animation
+        // listener set on the view.
+        mContentView.animate()
+                .alpha(1f)
+                .setDuration(mShortAnimationDuration)
+                .setListener(null);
+
+        // Animate the loading view to 0% opacity. After the animation ends,
+        // set its visibility to GONE as an optimization step (it won't
+        // participate in layout passes, etc.)
+        mLoadingView.animate()
+                .alpha(0f)
+                .setDuration(mShortAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mLoadingView.setVisibility(View.GONE);
+                    }
+
+                });
+    }
+
+    // ViewPager animation
+    public void startViewPagerAnimation(View view) {
+        startActivity(new Intent(this, ViewPagerAnimationActivity.class));
     }
 
 }

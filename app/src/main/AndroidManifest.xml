@@ -249,6 +249,14 @@
             android:name=".AnimationActivity"
             android:label="@string/title_activity_animation" >
         </activity>
+        <activity
+            android:name=".ViewPagerAnimationActivity"
+            android:label="@string/title_activity_view_pager_animation"
+            android:parentActivityName=".AnimationActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.androidtraining.AnimationActivity" />
+        </activity>
     </application>
 
 </manifest>
