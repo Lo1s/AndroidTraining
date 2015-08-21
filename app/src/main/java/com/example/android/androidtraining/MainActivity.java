@@ -506,5 +506,10 @@ public class MainActivity extends ActionBarActivity {
     public void startAnimationActivity(View view) {
         startActivity(new Intent(this, AnimationActivity.class));
     }
+
+    // Start the Connectivity & Cloud Activity
+    public void startConnectivityActivity(View view) {
+        startActivity(new Intent(this, ConnectivityActivity.class));
+    }
 }
 

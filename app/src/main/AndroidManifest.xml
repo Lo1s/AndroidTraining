@@ -269,6 +269,22 @@
             android:name=".AddItemsActivity"
             android:label="@string/title_activity_add_items" >
         </activity>
+        <activity
+            android:name=".ConnectivityActivity"
+            android:label="@string/title_activity_connectivity"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.androidtraining.MainActivity" />
+        </activity>
+        <activity
+            android:name=".NsdActivity"
+            android:label="@string/title_activity_nsd"
+            android:parentActivityName=".ConnectivityActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.androidtraining.ConnectivityActivity" />
+        </activity>
     </application>
 
 </manifest>

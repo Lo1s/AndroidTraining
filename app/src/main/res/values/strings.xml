@@ -161,5 +161,9 @@ Jobs was diagnosed with a pancreas neuroendocrine tumor in 2003 and died of resp
     <string name="prairie_dogs_image_description">Prairie thumbnail</string>
     <string name="title_activity_add_items">AddItemsActivity</string>
     <string name="button_add">Add</string>
+    <string name="title_activity_connectivity">ConnectivityActivity</string>
+    <string name="button_connectivity">Connectivity</string>
+    <string name="button_nsd">NSD</string>
+    <string name="title_activity_nsd">NsdActivity</string>
 
 </resources>

@@ -100,9 +100,10 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Free"
+            android:text="@string/button_connectivity"
             android:textAllCaps="false"
-            style="@style/FontColor"/>
+            style="@style/FontColor"
+            android:onClick="startConnectivityActivity"/>
 
         <Button
             android:layout_width="wrap_content"
