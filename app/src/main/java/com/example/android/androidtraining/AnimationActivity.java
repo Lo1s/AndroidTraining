@@ -156,4 +156,19 @@ public class AnimationActivity extends AppCompatActivity {
         startActivity(new Intent(this, ViewPagerAnimationActivity.class));
     }
 
+    // Start Flip Card activity
+    public void startFlipCardActivity(View view) {
+        startActivity(new Intent(this, CardFlipActivity.class));
+    }
+
+    // Start the Zoom Animation Activity
+    public void startZoomAnimationActivity(View view) {
+        startActivity(new Intent(this, ZoomAnimationActivity.class));
+    }
+
+    // Start the Add Items Activity
+    public void addItems(View view) {
+        startActivity(new Intent(this, AddItemsActivity.class));
+    }
+
 }

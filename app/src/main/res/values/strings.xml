@@ -125,8 +125,8 @@
     <string name="textView_title">Title</string>
     <string name="textView1_sceneA">Text Line 1</string>
     <string name="textView2_sceneA">Text Line 2</string>
-    <string name="button_start_animation">Start Animation</string>
-    <string name="button_add_textView">Add TextView</string>
+    <string name="button_start_animation">Animate</string>
+    <string name="button_add_items">Add Items</string>
     <string name="button_remove_me">Move Me !</string>
     <string name="textView_steve">Steven Paul Steve Jobs February 24, 1955 – October 5, 2011 was an American pioneer of the personal computer revolution of the 1970s (along with engineer, inventor, and Apple Computer co-founder, Steve Wozniak). Shortly after his death, Jobss official biographer, Walter Isaacson described him as the creative entrepreneur whose passion for perfection and ferocious drive revolutionized six industries: personal computers, animated movies, music, phones, tablet computing, and digital publishing.[2]
 
@@ -149,5 +149,17 @@ Jobs was diagnosed with a pancreas neuroendocrine tumor in 2003 and died of resp
     <string name="title_activity_view_pager_animation">ViewPagerAnimationActivity</string>
     <string name="button_zoomout">Zoom Out</string>
     <string name="button_depthpage">Depth Page</string>
+    <string name="steve_jobs_close_up">Close up image of Steve Jobs</string>
+    <string name="title_activity_card_flip">CardFlipActivity</string>
+    <string name="button_flipcard">FlipCard</string>
+    <string name="menu_show_info">Show info</string>
+    <string name="menu_show_image">Show Image</string>
+    <string name="button_zoom_animation">Zoom Animation</string>
+    <string name="title_activity_zoom_animation">ZoomAnimationActivity</string>
+    <string name="rafa_thumbnail_description">Rafa thumbnail</string>
+    <string name="rafa_image_full_size_description">Rafa image in full size</string>
+    <string name="prairie_dogs_image_description">Prairie thumbnail</string>
+    <string name="title_activity_add_items">AddItemsActivity</string>
+    <string name="button_add">Add</string>
 
 </resources>

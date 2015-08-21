@@ -33,12 +33,16 @@ public class ViewPagerActivity extends FragmentActivity {
 
     // A static dataset to back the ViewPager adapter
     public final static Integer[] imageResIds = new Integer[] {
+            R.drawable.gtav, R.drawable.rafa,R.drawable.android_hd, R.drawable.androidparty,
+            R.drawable.android_widget_preview, R.drawable.steve_jobs_close_up,
+            R.drawable.prairiedogs};
+    /*public final static Integer[] imageResIds = new Integer[] {
             R.drawable.img_1, R.drawable.img_2, R.drawable.img_3, R.drawable.img_4, R.drawable.img_5,
             R.drawable.img_6, R.drawable.img_7, R.drawable.img_8, R.drawable.img_9, R.drawable.img_10,
             R.drawable.img_11, R.drawable.img_12, R.drawable.img_13, R.drawable.img_14, R.drawable.img_15,
             R.drawable.img_16, R.drawable.img_16, R.drawable.img_17, R.drawable.img_18, R.drawable.img_19,
             R.drawable.img_20, R.drawable.img_21, R.drawable.img_22, R.drawable.img_23, R.drawable.img_24
-    };
+    };*/
 
     public static class ImagePagerAdapter extends FragmentStatePagerAdapter {
 

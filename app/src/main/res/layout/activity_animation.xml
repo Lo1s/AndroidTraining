@@ -38,6 +38,15 @@
             style="@style/FontColor"
             android:onClick="animateScene"/>
 
+        <Button
+            android:id="@+id/button_flipcard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_flipcard"
+            style="@style/FontColor"
+            android:textAllCaps="false"
+            android:onClick="startFlipCardActivity"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -48,14 +57,14 @@
         android:layout_below="@id/master_layout">
 
         <Button
-            android:id="@+id/button_add_textView"
+            android:id="@+id/button_add_items"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/master_layout"
-            android:text="@string/button_add_textView"
+            android:text="@string/button_add_items"
             android:textAllCaps="false"
             style="@style/FontColor"
-            android:onClick="addTextView"/>
+            android:onClick="addItems"/>
 
         <Button
             android:id="@+id/button_cross_fade"
@@ -127,6 +136,17 @@
         <include layout="@layout/button_move_left" />
 
     </FrameLayout>
+
+    <Button
+        android:id="@+id/button_zoomImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_zoom_animation"
+        android:textAllCaps="false"
+        style="@style/FontColor"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:onClick="startZoomAnimationActivity"/>
 
 </RelativeLayout>
 

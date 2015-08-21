@@ -257,6 +257,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.androidtraining.AnimationActivity" />
         </activity>
+        <activity
+            android:name=".CardFlipActivity"
+            android:label="@string/title_activity_card_flip" >
+        </activity>
+        <activity
+            android:name=".ZoomAnimationActivity"
+            android:label="@string/title_activity_zoom_animation" >
+        </activity>
+        <activity
+            android:name=".AddItemsActivity"
+            android:label="@string/title_activity_add_items" >
+        </activity>
     </application>
 
 </manifest>
