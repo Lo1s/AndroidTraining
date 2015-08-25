@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.androidtraining.ConnectivityActivity">
+    tools:context="com.example.android.androidtraining.GettingStarted.ConnectivityActivity">
 
     <LinearLayout
         android:layout_weight="1"
@@ -19,20 +19,61 @@
             style="@style/FontColor"
             android:onClick="startNSD"/>
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/button_network"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_network"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="checkNetwork"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/button_background_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_check_background"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="checkNetworkInBackground"/>
 
-
+        <Button
+            android:id="@+id/button_test_connectivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_test_connectivity"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="testConnection"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editText_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="true"
+            style="@style/FontColor"
+            android:hint="Enter URL"
+            android:text="http://www.idnes.cz"/>
+
+        <TextView
+            android:id="@+id/textView_mobile_connection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textView_mobile_connection"
+            />
+        <TextView
+            android:id="@+id/textView_wifi_connection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textView_wifi_connection"/>
 
     </LinearLayout>
 

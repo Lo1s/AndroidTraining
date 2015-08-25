@@ -6,14 +6,14 @@
     android:orientation="horizontal">
 
     <fragment
-        android:name="com.example.android.androidtraining.ButtonsFragment"
+        android:name="com.example.android.androidtraining.GettingStarted.ButtonsFragment"
         android:id="@+id/buttons_fragment"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent" />
 
     <fragment
-        android:name="com.example.android.androidtraining.ImageFragment"
+        android:name="com.example.android.androidtraining.GettingStarted.ImageFragment"
         android:id="@+id/image_fragment"
         android:layout_width="0dp"
         android:layout_weight="2"

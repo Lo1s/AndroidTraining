@@ -6,7 +6,34 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.android.androidtraining.NsdActivity">
+    tools:context="com.example.android.androidtraining.ChatApp.NsdActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <Button
+            android:id="@+id/button_discover_peers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_discover_peers"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="discoverPeers"/>
+
+        <Button
+            android:id="@+id/button_connect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_connect"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="connect"/>
+
+    </LinearLayout>
+
+
 
 
 

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:animateLayoutChanges="true"
-    tools:context="com.example.android.androidtraining.AddItemsActivity">
+    tools:context="com.example.android.androidtraining.AnimationApp.AddItemsActivity">
 
     <Button
         android:id="@+id/button_add"

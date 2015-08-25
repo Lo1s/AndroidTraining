@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:paddingBottom="8dp"
     android:paddingTop="8dp"
-    tools:context="com.example.android.androidtraining.BitmapActivity">
+    tools:context="com.example.android.androidtraining.MediaApp.BitmapActivity">
 
     <TextView
         android:id="@+id/textView_bitmap_load_speed"

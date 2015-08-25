@@ -3,7 +3,7 @@
     android:id="@+id/card_flip_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.androidtraining.CardFlipActivity">
+    tools:context="com.example.android.androidtraining.AnimationApp.CardFlipActivity">
 
 
 </FrameLayout>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="com.example.android.androidtraining.CameraActivity">
+    tools:context="com.example.android.androidtraining.MediaApp.CameraActivity">
 
     <FrameLayout
         android:id="@+id/frame_layout_camera_preview"

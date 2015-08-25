@@ -38,6 +38,11 @@
     <!-- Permission for bluetooth headset -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Wifi P2P permissions -->
+    <uses-permission android:name="ANDROID.PERMISSION.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="ANDROID.PERMISSION.CHANGE_WIFI_STATE" />
+    <!-- Connecting to network -->
+    <uses-permission android:name="ANDROID.PERMISSION.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -46,7 +51,7 @@
         android:theme="@style/CustomActionBarTheme"
         android:uiOptions="splitActionBarWhenNarrow" >
         <activity
-            android:name=".MainActivity"
+            android:name=".GettingStarted.MainActivity"
             android:label="@string/app_name"
             android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
@@ -60,13 +65,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DisplayMessageActivity"
+            android:name=".GettingStarted.DisplayMessageActivity"
             android:label="@string/title_activity_display_message"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".GettingStarted.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.androidtraining.MainActivity" />
+                android:value=".GettingStarted.MainActivity" />
             <!-- Custom made intent for displaying text/plain in the DisplayMessageActivity -->
             <intent-filter>
                 <action android:name="com.example.android.androidtraining.activity.DISPLAY_MESSAGE" />
@@ -77,26 +82,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DisplayImageActivity"
+            android:name=".GettingStarted.DisplayImageActivity"
             android:label="@string/title_activity_display" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".GettingStarted.MainActivity" />
         </activity>
         <activity
-            android:name=".TabActivity"
+            android:name=".GettingStarted.TabActivity"
             android:label="@string/title_activity_tab" />
         <activity
-            android:name=".DropDownNavigationActivity"
+            android:name=".GettingStarted.DropDownNavigationActivity"
             android:label="@string/title_activity_drop_down_navigation" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".GettingStarted.LoginActivity"
             android:label="@string/title_activity_login"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".GettingStarted.MainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.androidtraining.MainActivity" />
+                android:value=".GettingStarted.MainActivity" />
         </activity>
 
         <meta-data
@@ -104,24 +109,24 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".IntentsActivity"
+            android:name=".GettingStarted.IntentsActivity"
             android:label="@string/title_activity_intents"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".GettingStarted.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.androidtraining.MainActivity" />
+                android:value=".GettingStarted.MainActivity" />
         </activity>
 
         <service
-            android:name=".HelloIntentService"
+            android:name=".GettingStarted.HelloIntentService"
             android:exported="false" />
         <service
-            android:name=".HelloService"
+            android:name=".GettingStarted.HelloService"
             android:enabled="true"
             android:exported="true" />
-        <service android:name=".BindService" />
+        <service android:name=".GettingStarted.BindService" />
         <service
-            android:name=".MediaService"
+            android:name=".MediaApp.MediaService"
             android:enabled="true"
             android:exported="true" >
             <intent-filter>
@@ -144,9 +149,9 @@
         </provider>
 
         <activity
-            android:name=".FileSelectActivity"
+            android:name=".GettingStarted.FileSelectActivity"
             android:label="@string/title_activity_file_select"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".GettingStarted.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.PICK" />
 
@@ -159,10 +164,10 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.androidtraining.MainActivity" />
+                android:value=".GettingStarted.MainActivity" />
         </activity>
 
-        <receiver android:name=".AppWidgetProviderTest" >
+        <receiver android:name=".GettingStarted.AppWidgetProviderTest" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -173,117 +178,139 @@
         </receiver>
 
         <activity
-            android:name=".DatabaseActivity"
+            android:name=".GettingStarted.DatabaseActivity"
             android:label="@string/title_activity_database"
-            android:parentActivityName=".LoginActivity" >
+            android:parentActivityName=".GettingStarted.LoginActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.androidtraining.LoginActivity" />
+                android:value=".GettingStarted.LoginActivity" />
         </activity>
         <activity
-            android:name=".MediaActivity"
+            android:name=".MediaApp.MediaActivity"
             android:label="@string/title_activity_media"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".GettingStarted.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.androidtraining.MainActivity" />
+                android:value=".GettingStarted.MainActivity" />
         </activity>
         <activity
-            android:name=".RecordActivity"
+            android:name=".MediaApp.RecordActivity"
             android:label="@string/title_activity_record" >
         </activity>
 
-        <receiver android:name=".RemoteReceiver" >
+        <receiver android:name=".MediaApp.RemoteReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name=".CameraActivity"
+            android:name=".MediaApp.CameraActivity"
             android:label="@string/title_activity_camera"
-            android:parentActivityName=".MediaActivity"
+            android:parentActivityName=".MediaApp.MediaActivity"
             android:screenOrientation="landscape" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.androidtraining.MediaActivity" />
+                android:value=".MediaApp.MediaActivity" />
         </activity>
         <activity
-            android:name=".VideoActivity"
+            android:name=".MediaApp.VideoActivity"
             android:label="@string/title_activity_video"
-            android:parentActivityName=".MediaActivity"
+            android:parentActivityName=".MediaApp.MediaActivity"
             android:screenOrientation="landscape" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.androidtraining.MediaActivity" />
+                android:value=".MediaApp.MediaActivity" />
         </activity>
         <activity
-            android:name=".BitmapActivity"
+            android:name=".MediaApp.BitmapActivity"
             android:label="@string/title_activity_bitmap"
-            android:parentActivityName=".MediaActivity" >
+            android:parentActivityName=".MediaApp.MediaActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.androidtraining.MediaActivity" />
+                android:value=".MediaApp.MediaActivity" />
         </activity>
         <activity
-            android:name=".ViewPagerActivity"
+            android:name=".MediaApp.ViewPagerActivity"
             android:label="@string/title_activity_view_pager"
-            android:parentActivityName=".MediaActivity" >
+            android:parentActivityName=".MediaApp.MediaActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.androidtraining.MediaActivity" />
+                android:value=".MediaApp.MediaActivity" />
         </activity>
         <activity
-            android:name=".GridViewActivity"
+            android:name=".MediaApp.GridViewActivity"
             android:label="@string/title_activity_grid" >
         </activity>
         <activity
-            android:name=".OpenGLActivity"
+            android:name=".MediaApp.OpenGLActivity"
             android:label="@string/title_activity_open_gl"
-            android:parentActivityName=".MediaActivity" >
+            android:parentActivityName=".MediaApp.MediaActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.androidtraining.MediaActivity" />
+                android:value=".MediaApp.MediaActivity" />
         </activity>
         <activity
-            android:name=".AnimationActivity"
+            android:name=".AnimationApp.AnimationActivity"
             android:label="@string/title_activity_animation" >
         </activity>
         <activity
-            android:name=".ViewPagerAnimationActivity"
+            android:name=".AnimationApp.ViewPagerAnimationActivity"
             android:label="@string/title_activity_view_pager_animation"
-            android:parentActivityName=".AnimationActivity" >
+            android:parentActivityName=".AnimationApp.AnimationActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.androidtraining.AnimationActivity" />
+                android:value=".AnimationApp.AnimationActivity" />
         </activity>
         <activity
-            android:name=".CardFlipActivity"
+            android:name=".AnimationApp.CardFlipActivity"
             android:label="@string/title_activity_card_flip" >
         </activity>
         <activity
-            android:name=".ZoomAnimationActivity"
+            android:name=".AnimationApp.ZoomAnimationActivity"
             android:label="@string/title_activity_zoom_animation" >
         </activity>
         <activity
-            android:name=".AddItemsActivity"
+            android:name=".AnimationApp.AddItemsActivity"
             android:label="@string/title_activity_add_items" >
         </activity>
         <activity
-            android:name=".ConnectivityActivity"
+            android:name=".GettingStarted.ConnectivityActivity"
             android:label="@string/title_activity_connectivity"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".GettingStarted.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.androidtraining.MainActivity" />
+                android:value=".GettingStarted.MainActivity" />
         </activity>
         <activity
-            android:name=".NsdActivity"
+            android:name=".ChatApp.NsdActivity"
             android:label="@string/title_activity_nsd"
-            android:parentActivityName=".ConnectivityActivity" >
+            android:parentActivityName=".GettingStarted.ConnectivityActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.androidtraining.ConnectivityActivity" />
+                android:value=".GettingStarted.ConnectivityActivity" />
+        </activity>
+        <activity
+            android:name=".GettingStarted.ShowWebPageActivity"
+            android:label="@string/title_activity_show_web_page" >
+        </activity>
+        <activity
+            android:name=".GettingStarted.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".GettingStarted.ConnectivityActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.androidtraining.GettingStarted.ConnectivityActivity" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GettingStarted.NetworkActivity"
+            android:label="@string/title_activity_network" >
         </activity>
     </application>
 
