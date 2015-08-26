@@ -191,5 +191,7 @@
     <string name="connection_error">Unable to load content. Check your network connection.</string>
     <string name="xml_error">Error parsing XML.</string>
     <string name="title_activity_network">NetworkActivity</string>
+    <string name="button_xmlParser">XML Parser</string>
+    <string name="button_start_parsing">Start Parsing</string>
 
 </resources>

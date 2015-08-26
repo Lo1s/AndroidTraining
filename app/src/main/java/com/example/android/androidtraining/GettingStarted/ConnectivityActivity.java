@@ -181,4 +181,9 @@ public class ConnectivityActivity extends AppCompatActivity {
         }
     }
 
+    // Start XML Parser activity
+    public void startXmlParser(View view) {
+        startActivity(new Intent(this, NetworkActivity.class));
+    }
+
 }

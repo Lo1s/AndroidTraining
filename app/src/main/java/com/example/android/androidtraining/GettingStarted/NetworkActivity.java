@@ -7,14 +7,29 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.example.android.androidtraining.R;
+import com.example.android.androidtraining.XmlParser.StackOverflowXmlParser;
+
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
 
 public class NetworkActivity extends AppCompatActivity {
 
@@ -38,7 +53,7 @@ public class NetworkActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_network);
         // Registers BroadcastReceiver to track network connection changes.
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         receiver = new NetworkReceiver();
@@ -94,14 +109,17 @@ public class NetworkActivity extends AppCompatActivity {
 
     // Uses AsyncTask subclass to download the XML feed from stackoverflow.com.
     public void loadPage() {
-        if (((sPref.equals(ANY)) && (wifiConnected || mobileConnected))
-            || ((sPref.equals(WIFI)) && (wifiConnected))) {
+        if ((sPref.equals(ANY)) && (wifiConnected || mobileConnected)) {
             // AsyncTask subclass
             // TODO: 25.8.2015 Complete https://github.com/android/platform_frameworks_base/tree/master/samples/training/network-usage
+            new DownloadXmlTask().execute(URL);
+        } else if ((sPref.equals(WIFI)) && (wifiConnected)) {
+            new DownloadXmlTask().execute(URL);
+        } else {
+            Toast.makeText(NetworkActivity.this, "Load Page Error", Toast.LENGTH_SHORT).show();
         }
     }
-    
-    
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -126,12 +144,10 @@ public class NetworkActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * This BroadcastReceiver intercepts the android.net.ConnectivityManager.CONNECTIVITY_ACTION,
      * which indicates a connection change. It checks whether the type is TYPE_WIFI.
      * If it is, it checks whether Wi-Fi is connected and sets the wifiConnected flag in the
      * main activity accordingly.
-     *
      */
     public class NetworkReceiver extends BroadcastReceiver {
 
@@ -168,4 +184,97 @@ public class NetworkActivity extends AppCompatActivity {
             }
         }
     }
+
+    // Implementation of AsyncTask used to download XML feed from stackoverflow.com.
+    private class DownloadXmlTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            try {
+                return loadXmlFromNetwork(urls[0]);
+            } catch (IOException ex) {
+                return "Connection error";
+            } catch (XmlPullParserException ex) {
+                return "Xml parse error";
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            WebView webView = (WebView) findViewById(R.id.webView_xml_parsing);
+            webView.loadData(s, "text/html", null);
+        }
+    }
+
+    // Uploads XML from stackoverflow.com, parses it, and combines it with
+    // HTML markup. Returns HTML string.
+    private String loadXmlFromNetwork(String urlString) throws XmlPullParserException, IOException {
+        InputStream stream = null;
+
+        // Instantiate the parser
+        StackOverflowXmlParser stackOverflowXmlParser = new StackOverflowXmlParser();
+        List<StackOverflowXmlParser.Entry> entries = null;
+        String title = null;
+        String url = null;
+        String summary = null;
+        Calendar rightNow = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("MMM dd h:mmaa");
+
+        // Checks whether the user set the preference to include summary text
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean pref = sharedPrefs.getBoolean("summaryPref", false);
+
+        StringBuilder htmlString = new StringBuilder();
+        htmlString.append("<h3>" + getResources().getString(R.string.page_title) + "</h3>");
+        htmlString.append("<em>" + getResources().getString(R.string.updated) + " " +
+                formatter.format(rightNow.getTime()) + "</em>");
+
+        try {
+            stream = downloadUrl(urlString);
+            entries = stackOverflowXmlParser.parse(stream);
+            // Makes sure that the InputStream is closed after the app is
+            // finished using it.
+        } finally {
+            if (stream != null) {
+                stream.close();
+            }
+        }
+
+        // StackOverflowXmlParser returns a List (called "entries") of Entry objects.
+        // Each Entry object represents a single post in the XML feed.
+        // This section processes the entries list to combine each entry with HTML markup.
+        // Each entry is displayed in the UI as a link that optionally includes
+        // a text summary.
+        for (StackOverflowXmlParser.Entry entry :
+                entries) {
+            htmlString.append("<p><a href='");
+            htmlString.append(entry.link);
+            htmlString.append("'>" + entry.title + "</a></p>");
+            // If the user set the preference to include summary text,
+            // adds it to the display.
+            if (pref) {
+                htmlString.append(entry.summary);
+            }
+        }
+        return htmlString.toString();
+    }
+
+    // Given a string representation of a URL, sets up a connection and gets
+    // an input stream.
+    private InputStream downloadUrl(String urlString) throws IOException {
+        URL url = new URL(urlString);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setReadTimeout(10000 /* milliseconds */);
+        conn.setConnectTimeout(15000 /* milliseconds */);
+        conn.setRequestMethod("GET");
+        conn.setDoInput(true);
+        // Starts the query
+        conn.connect();
+        return conn.getInputStream();
+    }
+
+    public void startParsing(View view) {
+
+    }
+
 }

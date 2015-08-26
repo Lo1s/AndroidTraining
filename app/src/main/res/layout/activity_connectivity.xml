@@ -46,6 +46,15 @@
             style="@style/FontColor"
             android:onClick="testConnection"/>
 
+        <Button
+            android:id="@+id/button_xmlParser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_xmlParser"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="startXmlParser"/>
+
     </LinearLayout>
 
     <LinearLayout
