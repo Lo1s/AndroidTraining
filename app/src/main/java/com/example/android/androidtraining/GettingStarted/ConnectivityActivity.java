@@ -13,6 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.android.androidtraining.ChatApp.NsdActivity;
 import com.example.android.androidtraining.R;
 
@@ -184,6 +189,33 @@ public class ConnectivityActivity extends AppCompatActivity {
     // Start XML Parser activity
     public void startXmlParser(View view) {
         startActivity(new Intent(this, NetworkActivity.class));
+    }
+
+    TextView textViewVolley;
+    // Create new Volley request
+    public void volleyRequest(View view) {
+        textViewVolley = (TextView) findViewById(R.id.textView_volley_result);
+        // Instantiate the RequestQueue.
+        com.android.volley.RequestQueue requestQueue = Volley.newRequestQueue(this);
+        String url = "http://www.google.com";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        textViewVolley.setText("Result: " + response.substring(0, 500));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                textViewVolley.setText("That did not work !");
+            }
+        });
+
+        // Add the request to the queue
+        requestQueue.add(stringRequest);
     }
 
 }

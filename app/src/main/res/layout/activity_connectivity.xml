@@ -55,6 +55,15 @@
             style="@style/FontColor"
             android:onClick="startXmlParser"/>
 
+        <Button
+            android:id="@+id/button_volley_newRequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_volley_newRequest"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="volleyRequest"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -83,6 +92,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/textView_wifi_connection"/>
+
+        <TextView
+            android:id="@+id/textView_volley_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/textView_volley_result"
+            android:textAllCaps="false"
+            style="@style/FontColor" />
 
     </LinearLayout>
 
