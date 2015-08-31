@@ -2,6 +2,7 @@ package com.example.android.androidtraining.GettingStarted;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -10,12 +11,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Cache;
+import com.android.volley.Network;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.android.androidtraining.ChatApp.NsdActivity;
@@ -216,6 +227,83 @@ public class ConnectivityActivity extends AppCompatActivity {
 
         // Add the request to the queue
         requestQueue.add(stringRequest);
+    }
+
+    // Create a new custom request (Volley)
+    public void volleyCustomRequest(View view) {
+        textViewVolley = (TextView) findViewById(R.id.textView_volley_result);
+        RequestQueue mRequestQueue;
+
+        // Instantiate the cache
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+
+        // Set up the network to use HttpURLConnection as the HTTP client.
+        Network network = new BasicNetwork(new HurlStack());
+
+        // Instantiate the RequestQueue with the cache and network.
+        mRequestQueue = new RequestQueue(cache, network);
+
+        // Start the queue
+        mRequestQueue.start();
+
+        String url = "http://www.idnes.cz";
+
+        // Formulate the request and handle the response.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Do something with the response
+                        textViewVolley.setText("Result: " + response.substring(0, 500));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                textViewVolley.setText("That did not work");
+            }
+        });
+
+        mRequestQueue.add(stringRequest);
+    }
+
+    // Start Volley via singleton
+    public void volleySingleton(View view) {
+        final ImageView mImageView;
+        String url = "http://i.imgur.com/7spzG.png";
+        mImageView = (ImageView) findViewById(R.id.imageView_volley);
+
+        // Retrieves an image specified by the URL, displays it in the UI.
+        ImageRequest request = new ImageRequest(url, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                mImageView.setImageBitmap(response);
+            }
+        }, 0, 0, null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                textViewVolley.setText("That did not work !");
+            }
+        });
+        // Access the RequestQueue through your singleton class.
+        VolleySingleton.getInstance(this).addRequestQueue(request);
+    }
+
+    // Load up the image into NetworkImageView
+    public void showInNetWorkImageView(View view) {
+        ImageLoader mImageLoader;
+        NetworkImageView mNetworkImageView;
+        final String IMAGE_URL =
+                "http://developer.android.com/images/training/system-ui.png";
+
+        // Get the NetworkImageView that will display the image.
+        mNetworkImageView = (NetworkImageView) findViewById(R.id.networkImageView);
+
+        // Get the ImageLoader through your singleton class.
+        mImageLoader = VolleySingleton.getInstance(this).getImageLoader();
+
+        // Set the URL of the image that should be loaded into this view, and
+        // specify the ImageLoader that will be used to make the request.
+        mNetworkImageView.setImageUrl(IMAGE_URL, mImageLoader);
     }
 
 }

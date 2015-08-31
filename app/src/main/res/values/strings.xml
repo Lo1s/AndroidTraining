@@ -195,5 +195,6 @@
     <string name="button_start_parsing">Start Parsing</string>
     <string name="button_volley_newRequest">Volley Request</string>
     <string name="textView_volley_result">Result:</string>
+    <string name="button_custom_volley_request">Custom Request</string>
 
 </resources>

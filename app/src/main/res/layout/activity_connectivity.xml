@@ -64,6 +64,33 @@
             style="@style/FontColor"
             android:onClick="volleyRequest"/>
 
+        <Button
+            android:id="@+id/button_custom_volley_request"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_custom_volley_request"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="volleyCustomRequest"/>
+
+        <Button
+            android:id="@+id/button_volley_singleton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Volley Singleton"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="volleySingleton"/>
+
+        <Button
+            android:id="@+id/button_volley_networkImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NetworkImageView"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="showInNetWorkImageView"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -100,6 +127,17 @@
             android:text="@string/textView_volley_result"
             android:textAllCaps="false"
             style="@style/FontColor" />
+
+        <ImageView
+            android:id="@+id/imageView_volley"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/networkImageView"
+            android:layout_width="150dp"
+            android:layout_height="170dp"
+            android:layout_centerHorizontal="true" />
 
     </LinearLayout>
 
