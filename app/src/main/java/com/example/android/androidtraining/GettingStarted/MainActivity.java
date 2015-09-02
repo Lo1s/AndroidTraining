@@ -157,6 +157,19 @@ public class MainActivity extends ActionBarActivity {
             // Set the dynamic callback for URI requests.
             mNfcAdapter.setBeamPushUrisCallback(mFileUriCallback, this);
         }
+
+        // Check if managed profile is available
+        PackageManager pm = getPackageManager();
+        if (pm.hasSystemFeature(PackageManager.FEATURE_MANAGED_USERS)) {
+            Toast.makeText(MainActivity.this, "This device supports managed profiles",
+                    Toast.LENGTH_SHORT).show();
+            // TODO: 2.9.2015 Try to create managed profile, RestrictionManager, restriction xml etc.
+            // after upgrading to Android 5.0 Lollipop
+            // http://developer.android.com/training/enterprise/index.html
+        } else {
+            Toast.makeText(MainActivity.this, "This device does not supports managed profiles",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
