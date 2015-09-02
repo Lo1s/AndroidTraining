@@ -108,9 +108,10 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Free"
+            android:text="@string/button_location"
             android:textAllCaps="false"
-            style="@style/FontColor"/>
+            style="@style/FontColor"
+            android:onClick="startLocationActivity"/>
 
 
     </LinearLayout>
@@ -120,6 +121,15 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true">
+
+        <Button
+            android:id="@+id/button_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_more"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="openMore"/>
 
         <EditText
             android:id="@+id/edit_message"

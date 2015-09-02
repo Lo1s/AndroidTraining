@@ -43,6 +43,8 @@
     <uses-permission android:name="ANDROID.PERMISSION.CHANGE_WIFI_STATE" />
     <!-- Connecting to network -->
     <uses-permission android:name="ANDROID.PERMISSION.ACCESS_NETWORK_STATE" />
+    <!-- Location permissions -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -311,6 +313,23 @@
         <activity
             android:name=".GettingStarted.NetworkActivity"
             android:label="@string/title_activity_network" >
+        </activity>
+        <activity
+            android:name=".GettingStarted.LocationActivity"
+            android:label="@string/title_activity_location" >
+        </activity>
+
+        <service
+            android:name=".GettingStarted.FetchAddressIntentService"
+            android:exported="false" />
+
+        <activity
+            android:name=".GettingStarted.MoreActivity"
+            android:label="@string/title_activity_more" >
+        </activity>
+        <activity
+            android:name=".GettingStarted.RetrieveContactsActivity"
+            android:label="@string/title_activity_retrieve_contacts" >
         </activity>
     </application>
 

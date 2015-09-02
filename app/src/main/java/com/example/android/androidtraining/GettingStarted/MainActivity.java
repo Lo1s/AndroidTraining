@@ -515,5 +515,15 @@ public class MainActivity extends ActionBarActivity {
     public void startConnectivityActivity(View view) {
         startActivity(new Intent(this, ConnectivityActivity.class));
     }
+
+    // Start location activity
+    public void startLocationActivity(View view) {
+        startActivity(new Intent(this, LocationActivity.class));
+    }
+
+    // Open more activities
+    public void openMore(View view) {
+        startActivity(new Intent(this, MoreActivity.class));
+    }
 }
 

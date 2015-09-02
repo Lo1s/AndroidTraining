@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.android.androidtraining.GettingStarted.RetrieveContactsActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout_search_contacts_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button_search_contacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_search_contacts"
+            android:onClick="searchContacts"/>
+
+        <EditText
+            android:id="@+id/editText_search_contacts"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            style="@style/FontColor"
+            android:hint="Search Contacts"/>
+
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/fragment_retrieve_contacts"
+        android:name="com.example.android.androidtraining.GettingStarted.RetrieveContactsActivity$ContactsFragment"
+        android:layout_below="@+id/linearLayout_search_contacts_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+
+
+
+</RelativeLayout>

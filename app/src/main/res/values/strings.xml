@@ -196,5 +196,21 @@
     <string name="button_volley_newRequest">Volley Request</string>
     <string name="textView_volley_result">Result:</string>
     <string name="button_custom_volley_request">Custom Request</string>
+    <string name="title_activity_location">LocationActivity</string>
+    <string name="button_get_location">Get Location</string>
+    <string name="button_location">Location</string>
+    <string name="textView_longitude">Longitude:</string>
+    <string name="textView_latitude">Latitude:</string>
+    <string name="checkBox_location_updates">Frequent updates</string>
+    <string name="textView_last_updated">Last Updated:</string>
+    <string name="button_get_address">Get Address</string>
+    <string name="textView_address">Address:</string>
+    <string name="button_geofencing">Geofencing</string>
+    <string name="title_activity_more">MoreActivity</string>
+    <string name="button_retrieve_contacts">Retrieve Contacts</string>
+    <string name="title_activity_retrieve_contacts">RetrieveContactsActivity</string>
+    <string name="button_search_contacts">Search</string>
+    <string name="textView_noContacts">No Contacts Found</string>
+    <string name="button_more">More</string>
 
 </resources>
