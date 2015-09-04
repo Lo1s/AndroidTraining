@@ -212,5 +212,15 @@
     <string name="button_search_contacts">Search</string>
     <string name="textView_noContacts">No Contacts Found</string>
     <string name="button_more">More</string>
+    <string name="button_navigation">Navigation</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="button_viewPager">ViewPager</string>
+    <string name="title_activity_view_pager_design">ViewPagerDesignActivity</string>
+    <string name="title_activity_drawer">DrawerActivity</string>
+    <string name="button_drawer">Navigation Drawer</string>
+    <string name="drawer_open">Opened</string>
+    <string name="drawer_close">Closed</string>
+    <string name="button_notification">Notify Me !</string>
+    <string name="switch_big_view">Big View Notification</string>
 
 </resources>

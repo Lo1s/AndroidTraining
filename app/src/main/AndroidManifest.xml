@@ -326,10 +326,31 @@
         <activity
             android:name=".GettingStarted.MoreActivity"
             android:label="@string/title_activity_more" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".GettingStarted.MainActivity">
+            </meta-data>
         </activity>
         <activity
             android:name=".GettingStarted.RetrieveContactsActivity"
             android:label="@string/title_activity_retrieve_contacts" >
+        </activity>
+        <activity
+            android:name=".Navigation.NavigationActivity"
+            android:label="@string/title_activity_navigation" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".GettingStarted.MoreActivity">
+            </meta-data>
+        </activity>
+        <activity
+            android:name=".Navigation.ViewPagerDesignActivity"
+            android:label="@string/title_activity_view_pager_design" >
+        </activity>
+        <activity
+            android:name=".Navigation.DrawerActivity"
+            android:label="@string/title_activity_drawer" >
         </activity>
     </application>
 

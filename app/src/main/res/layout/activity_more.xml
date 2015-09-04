@@ -21,6 +21,15 @@
             style="@style/FontColor"
             android:onClick="retrieveContacts"/>
 
+        <Button
+            android:id="@+id/button_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_navigation"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="startNavigationActivity"/>
+
     </LinearLayout>
 
     <LinearLayout

@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.android.androidtraining.Navigation.NavigationActivity;
 import com.example.android.androidtraining.R;
 
 public class MoreActivity extends AppCompatActivity {
@@ -42,5 +43,10 @@ public class MoreActivity extends AppCompatActivity {
     // Retrieve contacts
     public void retrieveContacts(View view) {
         startActivity(new Intent(this, RetrieveContactsActivity.class));
+    }
+
+    // Start navigation activity
+    public void startNavigationActivity(View view) {
+        startActivity(new Intent(this, NavigationActivity.class));
     }
 }

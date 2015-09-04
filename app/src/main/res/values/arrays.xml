@@ -6,6 +6,14 @@
         <item>Test3</item>
     </string-array>
 
+    <string-array name="drawer_titles">
+        <item>Title 1</item>
+        <item>Title 2</item>
+        <item>Title 3</item>
+        <item>Title 5</item>
+        <item>Title 6</item>
+    </string-array>
+
     <string-array name="listArray">
         <item>Only when on Wi-Fi</item>
         <item>On any network</item>
