@@ -104,6 +104,10 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".GettingStarted.MainActivity" />
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" >
+            </meta-data>
         </activity>
 
         <meta-data
@@ -328,7 +332,7 @@
             android:label="@string/title_activity_more" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".GettingStarted.MainActivity">
+                android:value=".GettingStarted.MainActivity" >
             </meta-data>
         </activity>
         <activity
@@ -338,10 +342,11 @@
         <activity
             android:name=".Navigation.NavigationActivity"
             android:label="@string/title_activity_navigation" >
+
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".GettingStarted.MoreActivity">
+                android:value=".GettingStarted.MoreActivity" >
             </meta-data>
         </activity>
         <activity
@@ -351,6 +356,13 @@
         <activity
             android:name=".Navigation.DrawerActivity"
             android:label="@string/title_activity_drawer" >
+        </activity>
+        <activity
+            android:name=".GettingStarted.SearchResultsActivity"
+            android:label="@string/title_activity_search_results" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
         </activity>
     </application>
 

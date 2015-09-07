@@ -222,5 +222,9 @@
     <string name="drawer_close">Closed</string>
     <string name="button_notification">Notify Me !</string>
     <string name="switch_big_view">Big View Notification</string>
+    <string name="search_login_db">Search database</string>
+    <string name="search_db_label">Search database</string>
+    <string name="search_db_hint">Search database</string>
+    <string name="title_activity_search_results">SearchResultsActivity</string>
 
 </resources>

@@ -9,6 +9,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,15 +21,15 @@ import com.example.android.androidtraining.R;
 
 public class NavigationActivity extends ActionBarActivity {
 
-    private Switch switchBigView = (Switch) findViewById(R.id.switch_big_view);
+    private Switch switchBigView;
     private boolean isSwitchChecked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        switchBigView = (Switch) findViewById(R.id.switch_big_view);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         switchBigView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -90,7 +91,9 @@ public class NavigationActivity extends ActionBarActivity {
     private int notifyNum = 0;
     public void notifyMe(View view) {
         // Sets an ID for the notification
-        int mNotificationId = 001;
+        final int mNotificationId = 001;
+        String msg = "Don't forget to feed the dogs before you leave for work. " +
+                "Also, check the garage to make sure we're not running low on dog food.";
 
         if (!isSwitchChecked) {
             NotificationCompat.Builder mBuilder =
@@ -130,17 +133,51 @@ public class NavigationActivity extends ActionBarActivity {
             PendingIntent piSnooze = PendingIntent.getService(this, 0, snoozeIntent, 0);
 
             // Constructs the Builder object.
-            NotificationCompat.Builder builder =
+            final NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(this)
                     .setSmallIcon(R.drawable.machine)
                     .setContentTitle("Big View Notification")
-                    .setContentText("Don't forget to feed the dogs before you leave for work. " +
-                            "Also, check the garage to make sure we're not running low on dog food.")
+                    .setContentText("In Progress")
                     .setDefaults(Notification.DEFAULT_ALL)
 
                     .setStyle(new NotificationCompat.BigTextStyle()
                     .bigText(msg))
-                    .addAction(R.drawable.)
+                    .addAction(R.drawable.ic_action_discard, "Discard", piDismiss)
+                    .addAction(R.drawable.ic_action_accept, "Accept", piSnooze);
+
+            final NotificationManager mNotifyMgr =
+                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+            // Start a lengthy operation in a background thread
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    int incr;
+                    // Do the "lengthy" operation 20 times
+                    for (incr = 0; incr < 100; incr += 5) {
+                        // Sets the progress indicator to a max value, the
+                        // current completion percentage, and "determinate"
+                        // state
+                        builder.setProgress(100, incr, false);
+                        // Displays the progress bar for the first time.
+                        mNotifyMgr.notify(mNotificationId, builder.build());
+                        // Sleeps the thread, simulating an operation
+                        // that takes time
+                        try {
+                            // Sleep for 5 seconds
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ex) {
+                            Log.d("NavigationActivity", "Sleep failure");
+                        }
+                    }
+                    // When the loop is finished, updates the notification
+                    builder.setContentText("Progress complete");
+                    // Removes the progress bar
+                    builder.setProgress(0, 0, false);
+                    mNotifyMgr.notify(mNotificationId, builder.build());
+                }
+            // Starts the thread by calling the run() method in its Runnable
+            }).start();
         }
 
     }

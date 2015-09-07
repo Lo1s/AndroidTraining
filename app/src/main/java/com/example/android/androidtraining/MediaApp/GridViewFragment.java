@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.android.androidtraining.R;
 
@@ -21,6 +23,11 @@ public class GridViewFragment extends Fragment implements AdapterView.OnItemClic
     // http://developer.android.com/training/displaying-bitmaps/display-bitmap.html
 
     private ImageAdapter mAdapter;
+    /*
+    * Sets up a SwipeRefreshLayout.OnRefreshListener that is invoked when the user
+    * performs a swipe-to-refresh gesture.
+    */
+    private SwipeRefreshLayout refreshLayout;
 
     // A static dataset to back the ViewPager adapter
     public final static Integer[] imageResIds = new Integer[] {
@@ -44,6 +51,7 @@ public class GridViewFragment extends Fragment implements AdapterView.OnItemClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAdapter = new ImageAdapter(getActivity());
+
     }
 
     @Nullable
@@ -53,6 +61,19 @@ public class GridViewFragment extends Fragment implements AdapterView.OnItemClic
         final GridView mGridView = (GridView) v.findViewById(R.id.gridView);
         mGridView.setAdapter(mAdapter);
         mGridView.setOnItemClickListener(this);
+
+        final SwipeRefreshLayout refreshLayout =
+                (SwipeRefreshLayout) v.findViewById(R.id.swipe_refresh);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(getActivity().getApplicationContext(), "Refreshed !",
+                        Toast.LENGTH_SHORT).show();
+                refreshLayout.setRefreshing(false);
+            }
+        });
+
+
         return v;
     }
 
@@ -102,5 +123,8 @@ public class GridViewFragment extends Fragment implements AdapterView.OnItemClic
             return imageView;
         }
     }
+
+
+
 
 }
