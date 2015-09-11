@@ -30,6 +30,15 @@
             style="@style/FontColor"
             android:onClick="startNavigationActivity"/>
 
+        <Button
+            android:id="@+id/button_material_design"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_material_design"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="startMaterialDesignApp"/>
+
     </LinearLayout>
 
     <LinearLayout

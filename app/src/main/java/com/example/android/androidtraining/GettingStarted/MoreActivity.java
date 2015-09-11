@@ -6,11 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.android.androidtraining.Navigation.NavigationActivity;
 import com.example.android.androidtraining.R;
 
 public class MoreActivity extends AppCompatActivity {
+
+    public static final String ACTION_MATERIAL = "com.example.android.androidtraining.GettingStarted.action.MATERIAL";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,5 +51,15 @@ public class MoreActivity extends AppCompatActivity {
     // Start navigation activity
     public void startNavigationActivity(View view) {
         startActivity(new Intent(this, NavigationActivity.class));
+    }
+
+    // Start Material Design app
+
+    public void startMaterialDesignApp(View view) {
+        Intent intent = new Intent(ACTION_MATERIAL);
+        if (intent.resolveActivity(getPackageManager()) != null)
+            startActivity(intent);
+        else
+            Toast.makeText(MoreActivity.this, "Not found", Toast.LENGTH_SHORT).show();
     }
 }

@@ -226,5 +226,6 @@
     <string name="search_db_label">Search database</string>
     <string name="search_db_hint">Search database</string>
     <string name="title_activity_search_results">SearchResultsActivity</string>
+    <string name="button_material_design">Material Design</string>
 
 </resources>
