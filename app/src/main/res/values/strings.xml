@@ -227,5 +227,10 @@
     <string name="search_db_hint">Search database</string>
     <string name="title_activity_search_results">SearchResultsActivity</string>
     <string name="button_material_design">Material Design</string>
+    <string name="title_activity_gestures">GesturesActivity</string>
+    <string name="button_gestures">Gestures</string>
+    <string name="textView_number_of_touches">Number of touches:</string>
+    <string name="textView_speedY">Speed (Y):</string>
+    <string name="textView_speedX">Speed (X):</string>
 
 </resources>

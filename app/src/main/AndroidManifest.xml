@@ -364,6 +364,14 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".GettingStarted.GesturesActivity"
+            android:label="@string/title_activity_gestures"
+            android:parentActivityName=".GettingStarted.MoreActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.androidtraining.GettingStarted.MoreActivity" />
+        </activity>
     </application>
 
 </manifest>

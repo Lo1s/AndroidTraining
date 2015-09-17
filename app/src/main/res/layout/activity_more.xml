@@ -39,6 +39,15 @@
             style="@style/FontColor"
             android:onClick="startMaterialDesignApp"/>
 
+        <Button
+            android:id="@+id/button_gestures"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_gestures"
+            android:textAllCaps="false"
+            style="@style/FontColor"
+            android:onClick="startGesturesActivity"/>
+
     </LinearLayout>
 
     <LinearLayout

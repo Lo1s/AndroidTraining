@@ -54,12 +54,16 @@ public class MoreActivity extends AppCompatActivity {
     }
 
     // Start Material Design app
-
     public void startMaterialDesignApp(View view) {
         Intent intent = new Intent(ACTION_MATERIAL);
         if (intent.resolveActivity(getPackageManager()) != null)
             startActivity(intent);
         else
             Toast.makeText(MoreActivity.this, "Not found", Toast.LENGTH_SHORT).show();
+    }
+
+    // Starts the Gestures activity
+    public void startGesturesActivity(View view) {
+        startActivity(new Intent(this, GesturesActivity.class));
     }
 }
